@@ -399,7 +399,7 @@ async function createTaskClickUp(data) {
       value: await getStatusClickup(parseInt(data.status)),
     },
     {
-      id: "8019704-a7db-40fb-bcbb-276fe6537975",
+      id: "f8019704-a7db-40fb-bcbb-276fe6537975",
       name: "CLIENTE",
       value: data.cliente || "",
     },
