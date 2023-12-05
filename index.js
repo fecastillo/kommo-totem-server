@@ -398,11 +398,13 @@ async function createTaskClickUp(data) {
       name: "Estado kommo",
       value: await getStatusClickup(parseInt(data.status)),
     },
+    /*
     {
       id: "88b437ed-82a3-458c-97b3-5466e041c249",
       name: "CLIENTE",
       value: data.cliente || "",
     },
+    */
   ];
   //recorrer dataCustomFields, si hay campos values con valor 0 o vario elminar todo el objeto al que pertenece
   dataCustomFields.forEach(function (item, index, object) {
