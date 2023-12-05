@@ -597,6 +597,7 @@ async function updatePvpComercialKommo(idKommo, pvpComercial, idClickUp, res) {
     Authorization: `Bearer ${token}`,
   };
   const requestBody = {
+    price: pvpComercial,
     custom_fields_values: [
       {
         field_id: id_pvp_comercial,
