@@ -1,0 +1,212 @@
+{
+    "fields": [
+        {
+            "id": "01da5a32-0a32-4d29-a4c1-6610984db49f",
+            "name": "Avance auto",
+            "type": "automatic_progress",
+            "type_config": {
+                "tracking": {
+                    "subtasks": true
+                },
+                "complete_on": 3,
+                "subtask_rollup": false
+            },
+            "date_created": "1666287589117",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "122897aa-5c1a-450f-916c-7f67fd2cc88a",
+            "name": "VENDEDOR",
+            "type": "users",
+            "type_config": {
+                "single_user": false,
+                "include_groups": null,
+                "include_guests": true,
+                "include_team_members": true
+            },
+            "date_created": "1689286617960",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "13d041c0-26fe-4d2f-b038-ff5222ee1a34",
+            "name": "Avance",
+            "type": "manual_progress",
+            "type_config": {
+                "end": 100,
+                "start": 0
+            },
+            "date_created": "1669821672684",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "15f9515b-3e6f-4575-a1d5-6b4a07506f27",
+            "name": "DURACIÓN ",
+            "type": "date",
+            "type_config": {},
+            "date_created": "1677792589045",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "175162d2-39c2-4634-9ba0-e7013443a093",
+            "name": "act",
+            "type": "drop_down",
+            "type_config": {
+                "default": 0,
+                "placeholder": null,
+                "new_drop_down": true,
+                "options": [
+                    {
+                        "id": "6056d5b4-13f1-4014-8923-4180bc6c5b28",
+                        "name": "si",
+                        "color": "#fff",
+                        "orderindex": 0
+                    }
+                ]
+            },
+            "date_created": "1691073047065",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "1953fbd8-d2da-4dd2-8f1f-3d3f3274fa6c",
+            "name": "Act Doc",
+            "type": "drop_down",
+            "type_config": {
+                "default": 0,
+                "placeholder": null,
+                "new_drop_down": true,
+                "options": [
+                    {
+                        "id": "b23d5b48-75e3-43b9-99cd-c9586ab2e736",
+                        "name": "si",
+                        "color": "#2ecd6f",
+                        "orderindex": 0
+                    },
+                    {
+                        "id": "19fc6960-3b5a-4a1b-9261-8c1583be3a01",
+                        "name": "no",
+                        "color": null,
+                        "orderindex": 1
+                    }
+                ]
+            },
+            "date_created": "1692719381834",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "27317d59-217e-4bac-9b5c-b62c1bb9d8ae",
+            "name": "GTT",
+            "type": "short_text",
+            "type_config": {},
+            "date_created": "1689876900997",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "34f2d81c-2308-4c8e-8018-ced1df2125c5",
+            "name": "RETRASO",
+            "type": "formula",
+            "type_config": {
+                "simple": false,
+                "formula": "NETWORKDAYS(TASK_DUE_DATE,TODAY())",
+                "version": "1.2",
+                "is_dynamic": true,
+                "return_types": [
+                    "number"
+                ],
+                "calculation_state": "ready"
+            },
+            "date_created": "1681144642110",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "3f10177c-aaff-4e95-b2e4-9c185d8269b4",
+            "name": "Fecha",
+            "type": "date",
+            "type_config": {},
+            "date_created": "1689094771032",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "524d6c56-f6ad-422b-8bcb-f5d150b6a588",
+            "name": "PVP comercial",
+            "type": "currency",
+            "type_config": {
+                "default": null,
+                "precision": 2,
+                "currency_type": "USD"
+            },
+            "date_created": "1679331615280",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "6ba408a7-009f-4f60-a7dd-93e7b8c86a17",
+            "name": "DIAS EN PROGRESO",
+            "type": "formula",
+            "type_config": {
+                "simple": false,
+                "formula": "DAYS(TODAY(),TASK_CREATED)",
+                "version": "1.2",
+                "is_dynamic": true,
+                "return_types": [
+                    "number"
+                ],
+                "calculation_state": "ready"
+            },
+            "date_created": "1666806795139",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "8dfc6adf-e845-418a-86c8-14a774e958c5",
+            "name": "% Cumplimiento",
+            "type": "manual_progress",
+            "type_config": {
+                "end": 100,
+                "start": 0
+            },
+            "date_created": "1669821753474",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "d30a4062-baad-4ebb-8007-321e3ccdce14",
+            "name": "Dias transcurridos",
+            "type": "formula",
+            "type_config": {
+                "simple": false,
+                "formula": "NETWORKDAYS(TASK_START_DATE,TODAY())",
+                "version": "1.2",
+                "is_dynamic": true,
+                "return_types": [
+                    "number"
+                ],
+                "calculation_state": "ready"
+            },
+            "date_created": "1666806999839",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "f3c4fd75-cbb2-4218-92ec-f13236ffdcf6",
+            "name": "RENTA MENSUAL",
+            "type": "currency",
+            "type_config": {
+                "default": null,
+                "precision": 2,
+                "currency_type": "USD"
+            },
+            "date_created": "1689023086837",
+            "hide_from_guests": false,
+            "required": false
+        }
+    ]
+}

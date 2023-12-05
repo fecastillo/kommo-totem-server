@@ -1,0 +1,55 @@
+{
+    "update": [
+        {
+            "id": "10635172",
+            "name": "",
+            "status_id": "58847099",
+            "price": "0",
+            "responsible_user_id": "9830207",
+            "last_modified": "1699910663",
+            "modified_user_id": "9830207",
+            "created_user_id": "9830207",
+            "date_create": "1699906970",
+            "pipeline_id": "7073743",
+            "account_id": "31462643",
+            "custom_fields": [
+                {
+                    "id": "1403188",
+                    "name": "PVP Comercial",
+                    "values": [
+                        {
+                            "value": "4000"
+                        }
+                    ]
+                },
+                {
+                    "id": "1403190",
+                    "name": "PVP Renta Mensual",
+                    "values": [
+                        {
+                            "value": "24000"
+                        }
+                    ]
+                },
+                {
+                    "id": "1403962",
+                    "name": "Id clickup",
+                    "values": [
+                        {
+                            "value": "86ayprg8z"
+                        }
+                    ]
+                },
+                {
+                    "id": "1403964",
+                    "name": "Ultima actualizacion",
+                    "values": [
+                        "1699906920"
+                    ]
+                }
+            ],
+            "created_at": "1699906970",
+            "updated_at": "1699910663"
+        }
+    ]
+}
