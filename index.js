@@ -280,7 +280,7 @@ async function getStatusClickup(statusId) {
       statusClickup = "Perdidas";
       break;
     default:
-      statusClickup = "Cotizando";
+      statusClickup = "Pendiente";
   }
   return statusClickup;
 }
