@@ -232,9 +232,8 @@ async function continueBot(data, urlContinue) {
 async function getIdListaClickup(id_usuario) {
   var id_lista_clickup = 0;
   //defino id de lista de acuero al usuario
-  if (parseInt(id_usuario) === 9830207 || parseInt(id_usuario) === 9267207) {
+  if (parseInt(id_usuario) === 9830207 || parseInt(id_usuario) === 9267207 || parseInt(id_usuario) === 9913875) {
     //proyectos
-
     id_lista_clickup = 386779373;
     return id_lista_clickup;
   } else if (
@@ -325,7 +324,7 @@ async function getNameUserKommo(id_usuario) {
       nameUserKommo = "Soledad Mancheno";
       break;
     case 9830207:
-      nameUserKommo = "Administrador";
+      nameUserKommo = "Luis Fernando Uribe";
       break;
     case 10085503:
       nameUserKommo = "Alejandro Sandoval";
@@ -336,6 +335,8 @@ async function getNameUserKommo(id_usuario) {
     case 10132156:
       nameUserKommo = "Santiago Guzman";
       break;
+    case 9913875:
+      nameUserKommo = "Lenny Rojas";
     default:
       nameUserKommo = "No definido";
   }
