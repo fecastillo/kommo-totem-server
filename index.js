@@ -478,8 +478,8 @@ async function updateTaskClickUp(data, urlContinue) {
     dataCustomFields.push({
       id: "27317d59-217e-4bac-9b5c-b62c1bb9d8ae",
       name: "GTT",
-      //el value de gtt se compone por el numero de año actual 23 + el ultimo gtt subido a mongo, ejemplo GTT23-1000
-      value: `GTT23-${updatedGtt}`,
+      //el value de gtt se compone por el numero de año actual 23 + el ultimo gtt subido a mongo, ejemplo -1000
+      value: `GTT24-${updatedGtt}`,
     });
     await postLastGtt(updatedGtt);
   } else if (data.status == id_enviado_cliente) {
@@ -524,7 +524,7 @@ async function updateTaskClickUp(data, urlContinue) {
     //continuar bot
     if (data.status == id_enviado_comercial) {
       await continueBot(
-        { data: { status: "success", gtt: `GTT23-${updatedGtt}` } },
+        { data: { status: "success", gtt: `GTT24-${updatedGtt}` } },
         urlContinue
       );
     } else if (data.status == id_enviado_cliente) {
