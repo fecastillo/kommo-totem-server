@@ -629,7 +629,7 @@ async function updatePvpComercialKommo(idKommo, pvpComercial, idClickUp, res) {
   }
 }
 //funcion para actualizar el campo renta mensual en kommo
-async function updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp, res) {
+async function updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp) {
   //si el id de kommo es 0 o es NaN, buscarlo en la base de datos mediante el id de clickup
   if (!idKommo || idKommo == 0 || isNaN(idKommo)) {
     idKommo = await getKommoId(idClickUp);
@@ -668,10 +668,8 @@ async function updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp, r
   try {
     const response = await axios.patch(url, requestBody, { headers });
     console.log(response.data);
-    res.sendStatus(200);
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    throw error;
   }
 }
 //funcion para obtener el id de clickup en base a kommo
@@ -976,13 +974,22 @@ app.post("/rentaMensual", async (req, res) => {
   const idClickUp = req.body.payload.id;
   const idKommo = req.query.idKommo || 0;
   const pvpRentaMensual = req.query.rentaMensual;
-  //ESPERAR 1 SEGUNDO
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const pvpNumber = pvpRentaMensual.replace(/\D/g, '');
+  let pvpNumber = 0;
+  //si existe pvpRentaMensual, extraer el numero y eliminar el signo de dolar
+  if (pvpRentaMensual) {
+    pvpNumber = pvpRentaMensual.replace(/\D/g, '');
+  }
   console.log("pvpNumber: ", pvpNumber); 
   console.log("idKommo: ", idKommo);
   console.log("pvpRentaMensual: ", pvpRentaMensual);
-  await updatePvpRentaMensualKommo(idKommo, pvpNumber, idClickUp, res);
+  try {
+    await updatePvpRentaMensualKommo(idKommo, pvpNumber, idClickUp);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+  
 });
 // Ruta actualizada con las funciones asincrónicas
 app.post("/updateFields", async (req, res) => {
