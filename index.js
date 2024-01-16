@@ -637,7 +637,7 @@ async function updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp, r
     idKommo = await getKommoId(idClickUp);
   }
   //pvp comercial viene en formato USD 1000, solo mantener el numero
-  pvpRentaMensual = parseInt(pvpRentaMensual.split(" ")[1]);
+  const splited = pvpRentaMensual.split(" ");
   await getCodes();
   const url = `https://${subdomain}/api/v4/leads/${idKommo}`;
   const token = variables.access_token;
@@ -652,7 +652,7 @@ async function updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp, r
         field_name: "PVP Renta Mensual",
         values: [
           {
-            value: pvpRentaMensual,
+            value: splited[1],
           },
         ],
       },
@@ -976,6 +976,8 @@ app.post("/rentaMensual", async (req, res) => {
   const idClickUp = req.body.payload.id;
   const idKommo = req.query.idKommo || 0;
   const pvpRentaMensual = req.query.rentaMensual;
+  const splited = pvpRentaMensual.split(" ");
+  console.log("splited: ", splited);
   console.log("idKommo: ", idKommo);
   console.log("pvpRentaMensual: ", pvpRentaMensual);
   await updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp, res);
