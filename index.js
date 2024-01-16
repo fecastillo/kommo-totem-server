@@ -972,6 +972,7 @@ app.post("/pvpComercial", async (req, res) => {
 });
 //ruta para procesar el cambio del campo renta mensual en kommo /rentaMensual?idKommo=10635172&rentaMensual=USD%202000
 app.post("/rentaMensual", async (req, res) => {
+  console.log("req.: ", req.query);
   const idClickUp = req.body.payload.id;
   const idKommo = req.query.idKommo || 0;
   const pvpRentaMensual = req.query.rentaMensual;
