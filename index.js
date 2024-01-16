@@ -961,6 +961,8 @@ app.post("/pvpComercial", async (req, res) => {
   const idClickUp = req.body.payload.id;
   const idKommo = req.query.idKommo || 0;
   const pvpComercial = req.query.pvpComercial;
+  //ESPERAR 1 SEGUNDO
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const pvpNumber = pvpComercial.replace(/\D/g, '');
   console.log("pvpNumber: ", pvpNumber);
   console.log("idClickUp: ", idClickUp);
@@ -974,6 +976,8 @@ app.post("/rentaMensual", async (req, res) => {
   const idClickUp = req.body.payload.id;
   const idKommo = req.query.idKommo || 0;
   const pvpRentaMensual = req.query.rentaMensual;
+  //ESPERAR 1 SEGUNDO
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const pvpNumber = pvpRentaMensual.replace(/\D/g, '');
   console.log("pvpNumber: ", pvpNumber); 
   console.log("idKommo: ", idKommo);
