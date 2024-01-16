@@ -581,7 +581,7 @@ async function updateCustomFieldsClickUp(data) {
   }
 }
 //funcion para actualizar el campo pvp Comercial en kommo
-async function updatePvpComercialKommo(idKommo, pvpComercial, idClickUp, res) {
+async function updatePvpComercialKommo(idKommo, pvpComercial, idClickUp) {
   //si el id de kommo es 0 o es NaN, buscarlo en la base de datos mediante el id de clickup
   if (!idKommo || idKommo == 0 || isNaN(idKommo)) {
     idKommo = await getKommoId(idClickUp);
@@ -622,10 +622,8 @@ async function updatePvpComercialKommo(idKommo, pvpComercial, idClickUp, res) {
   try {
     const response = await axios.patch(url, requestBody, { headers });
     console.log(response.data);
-    res.sendStatus(200);
   } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+    throw error;
   }
 }
 //funcion para actualizar el campo renta mensual en kommo
@@ -959,14 +957,23 @@ app.post("/pvpComercial", async (req, res) => {
   const idClickUp = req.body.payload.id;
   const idKommo = req.query.idKommo || 0;
   const pvpComercial = req.query.pvpComercial;
-  //ESPERAR 1 SEGUNDO
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const pvpNumber = pvpComercial.replace(/\D/g, '');
+  let pvpNumber = 0;
+  //si existe pvpComercial, extraer el numero y eliminar el signo de dolar
+  if (pvpComercial) {
+    pvpNumber = pvpComercial.replace(/\D/g, '');
+  }
   console.log("pvpNumber: ", pvpNumber);
   console.log("idClickUp: ", idClickUp);
   console.log("idKommo: ", idKommo);
   console.log("pvpComercial: ", pvpComercial);
-  await updatePvpComercialKommo(idKommo, pvpNumber, idClickUp, res);
+  try {
+    await updatePvpComercialKommo(idKommo, pvpNumber, idClickUp);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+  
 });
 //ruta para procesar el cambio del campo renta mensual en kommo /rentaMensual?idKommo=10635172&rentaMensual=USD%202000
 app.post("/rentaMensual", async (req, res) => {
