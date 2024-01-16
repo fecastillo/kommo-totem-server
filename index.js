@@ -586,8 +586,6 @@ async function updatePvpComercialKommo(idKommo, pvpComercial, idClickUp, res) {
   if (!idKommo || idKommo == 0 || isNaN(idKommo)) {
     idKommo = await getKommoId(idClickUp);
   }
-  //pvp comercial viene en formato USD 1000, solo mantener el numero
-  pvpComercial = parseInt(pvpComercial.split(" ")[1]);
   await getCodes();
   const url = `https://${subdomain}/api/v4/leads/${idKommo}`;
   const token = variables.access_token;
@@ -636,8 +634,6 @@ async function updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp, r
   if (!idKommo || idKommo == 0 || isNaN(idKommo)) {
     idKommo = await getKommoId(idClickUp);
   }
-  //pvp comercial viene en formato USD 1000, solo mantener el numero
-  const splited = pvpRentaMensual.split(" ");
   await getCodes();
   const url = `https://${subdomain}/api/v4/leads/${idKommo}`;
   const token = variables.access_token;
@@ -652,7 +648,7 @@ async function updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp, r
         field_name: "PVP Renta Mensual",
         values: [
           {
-            value: splited[1],
+            value: pvpRentaMensual,
           },
         ],
       },
@@ -965,10 +961,12 @@ app.post("/pvpComercial", async (req, res) => {
   const idClickUp = req.body.payload.id;
   const idKommo = req.query.idKommo || 0;
   const pvpComercial = req.query.pvpComercial;
+  const pvpNumber = pvpComercial.replace(/\D/g, '');
+  console.log("pvpNumber: ", pvpNumber);
   console.log("idClickUp: ", idClickUp);
   console.log("idKommo: ", idKommo);
   console.log("pvpComercial: ", pvpComercial);
-  await updatePvpComercialKommo(idKommo, pvpComercial, idClickUp, res);
+  await updatePvpComercialKommo(idKommo, pvpNumber, idClickUp, res);
 });
 //ruta para procesar el cambio del campo renta mensual en kommo /rentaMensual?idKommo=10635172&rentaMensual=USD%202000
 app.post("/rentaMensual", async (req, res) => {
@@ -976,11 +974,11 @@ app.post("/rentaMensual", async (req, res) => {
   const idClickUp = req.body.payload.id;
   const idKommo = req.query.idKommo || 0;
   const pvpRentaMensual = req.query.rentaMensual;
-  const splited = pvpRentaMensual.split(" ");
-  console.log("splited: ", splited);
+  const pvpNumber = pvpRentaMensual.replace(/\D/g, '');
+  console.log("pvpNumber: ", pvpNumber); 
   console.log("idKommo: ", idKommo);
   console.log("pvpRentaMensual: ", pvpRentaMensual);
-  await updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp, res);
+  await updatePvpRentaMensualKommo(idKommo, pvpNumber, idClickUp, res);
 });
 // Ruta actualizada con las funciones asincrónicas
 app.post("/updateFields", async (req, res) => {
