@@ -594,7 +594,7 @@ async function updatePvpComercialKommo(idKommo, pvpComercial, idClickUp) {
     Authorization: `Bearer ${token}`,
   };
   const requestBody = {
-    price: pvpComercial,
+    price: parseInt(pvpComercial),
     custom_fields_values: [
       {
         field_id: id_pvp_comercial,
@@ -970,7 +970,7 @@ app.post("/pvpComercial", async (req, res) => {
     await updatePvpComercialKommo(idKommo, pvpNumber, idClickUp);
     res.sendStatus(200);
   } catch (error) {
-    console.log(error);
+    console.log(JSON.stringify(error.response.data));
     res.sendStatus(500);
   }
   
