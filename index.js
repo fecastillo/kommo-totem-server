@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const fs = require("fs");
 const { get } = require("http");
+const path = require("path");
 const reqs = [];
 dotenv.config();
 const port = process.env.PORT || 3000;
@@ -232,7 +233,11 @@ async function continueBot(data, urlContinue) {
 async function getIdListaClickup(id_usuario) {
   var id_lista_clickup = 0;
   //defino id de lista de acuero al usuario
-  if (parseInt(id_usuario) === 9830207 || parseInt(id_usuario) === 9267207 || parseInt(id_usuario) === 9913875) {
+  if (
+    parseInt(id_usuario) === 9830207 ||
+    parseInt(id_usuario) === 9267207 ||
+    parseInt(id_usuario) === 9913875
+  ) {
     //proyectos
     id_lista_clickup = 386779373;
     return id_lista_clickup;
@@ -359,7 +364,48 @@ async function getCustomFieldsClickUp(id_lista_clickup) {
     console.error("Error al realizar la solicitud GET:", error);
   }
 }
-//getCustomFieldsClickUp(900800948233);
+//funcion para obtener un task de clickup mediante el id
+async function getTaskClickUp(id_task_clickup, customFieldName) {
+  const dataResponse = {
+    customFieldValue: 0,
+    error: ""
+  }
+  const url = `https://api.clickup.com/api/v2/task/${id_task_clickup}`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: token_clickup,
+  };
+  try {
+    const response = await axios.get(url, { headers: headers });
+    const customFields = response.data.custom_fields;
+    const customFieldValue = await getCustomFieldClickUp(customFieldName, customFields);
+    dataResponse.customFieldValue = customFieldValue;
+    return dataResponse;
+    //console.log(JSON.stringify(response.data));
+  } catch (error) {
+    if (error.response.data.ECODE == "ITEM_013") {
+      console.log("Tarea borrada en clickup: ", id_task_clickup);
+      dataResponse.error = "Tarea borrada en clickup";
+      return dataResponse;
+    }
+    console.error("Error al realizar la solicitud GET:", error.response.data);
+  }
+}
+//funcion para buscar el custom field de clickup en base al nombre y retornar el valor, recibe el nombre del campo y el array de custom fields
+async function getCustomFieldClickUp(name, customFields) {
+  var value = 0;
+  customFields.forEach(async function (item) {
+   
+    if (item.name == name) {
+      console.log("Nombre encontrado: ", item.name);
+      //chequear si existe el campo "value", si no existe devolver false
+      if (item.value) {
+        value = item.value;
+      }
+    }
+  });
+  return value;
+}
 //funcion para crear tarea en clickup
 async function createTaskClickUp(data) {
   var dataCustomFields = [
@@ -423,7 +469,7 @@ async function createTaskClickUp(data) {
     description:
       "Tarea creada desde Kommo, fecha: " + new Date().toLocaleDateString(),
     //definir custom fieds solo si hay datos en el array
-    
+
     custom_fields: dataCustomFields.length > 0 ? dataCustomFields : null,
   };
   console.log(body);
@@ -915,6 +961,152 @@ const manejarActualizacion = async (ultimaActualizacion, leadsData, res) => {
   await updateCustomFieldsClickUp(data);
   res.sendStatus(200);
 };
+//funcion para obtener todos los leads de kommo con parametro de pagina
+async function getAllLeadsKommo(page) {
+  const url = `https://${subdomain}/api/v4/leads?page=${page}&limit=250&filter[statuses][0][pipeline_id]=7073743&filter[statuses][0][status_id]=58847099&filter[statuses][1][pipeline_id]=7073743&filter[statuses][1][status_id]=60495387&filter[statuses][2][pipeline_id]=7073743&filter[statuses][2][status_id]=58847107&filter[statuses][3][pipeline_id]=7073743&filter[statuses][3][status_id]=59410763&filter[statuses][4][pipeline_id]=7073743&filter[statuses][4][status_id]=60495391&filter[statuses][5][pipeline_id]=7073743&filter[statuses][5][status_id]=58847103&filter[statuses][6][pipeline_id]=7073743&filter[statuses][6][status_id]=58847111`;
+  const token = variables.access_token;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  try {
+    const response = await axios.get(url, { headers });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+//funcion para obtener todos los leads de kommo, es una funcion recursiva si existe next en "_links" de la respuesta
+async function getAllLeadsKommoRecursive() {
+  await getCodes();
+  let page = 1;
+  const data = await getAllLeadsKommo(page);
+  if (data._links.next) {
+    const nextData = await getAllLeadsKommoRecursive(page + 1);
+    return data._embedded.leads.concat(nextData);
+  } else {
+    return data._embedded.leads;
+  }
+}
+//funcion paara simplicar el array y convertirlo en un objeto
+function arrayToJson(lead, campo) {
+  //console.log("Lead: ", lead)
+  // Función auxiliar para buscar un campo en el array
+  function findField(fieldName) {
+    return lead.custom_fields_values.find(item => item.field_name === fieldName);
+  }
+
+  var result = {
+    id: lead.id,
+    status_id: lead.status_id,
+    pipeline_id: lead.pipeline_id
+  };
+
+  var campoItem = findField(campo);
+  //console.log(campoItem)
+  var valorCampo = campoItem && campoItem.values && campoItem.values.length > 0 ? campoItem.values[0].value : null;
+  //console.log("Valor campo: ",valorCampo);
+  if (valorCampo == 0 || valorCampo == "" || valorCampo == null) {
+     result[campo] = 0;
+    //result[campoItem.field_name] = campoItem.values[0].value;
+
+    var idClickupItem = findField("Id clickup");
+    if (idClickupItem && idClickupItem.values && idClickupItem.values.length > 0) {
+      result[idClickupItem.field_name] = idClickupItem.values[0].value;
+      return result;
+    }
+  }
+
+  
+}
+
+async function getAllPvpComercial() {
+  const data = await getAllLeadsKommoRecursive();
+  var result = [];
+  for (var i = 0; i < data.length; i++) {
+    var item = data[i];
+    const leadsPvpRentaMensual = arrayToJson(item, "PVP Comercial");
+    if (leadsPvpRentaMensual) {
+      result.push(leadsPvpRentaMensual);
+    }
+  }
+  //recorrer el array de leads y pasar como parametro de la funcion getTaskClickUp el id de clickup
+  for (var i = 0; i < result.length; i++) {
+    var item = result[i];
+    
+    const pvpComercialClickupData = await getTaskClickUp(item["Id clickup"], "PVP comercial");
+    const pvpComercialClickup = pvpComercialClickupData.customFieldValue;
+    item["Pvp comercial clickup"] = pvpComercialClickup;
+    //console.log("Item: ", item)
+    //console.log("Id kommo: ", item.id, "PVP Comercial clickup: ", pvpComercialClickup, "PVP Comercial kommo: ", item["PVP Comercial"]);
+    if (pvpComercialClickup != item["PVP Comercial"]) {
+      item["Actualizar en kommo"] = true;
+      console.log("No son iguales, se debe actualizar en kommo");
+      try {
+        await updatePvpComercialKommo(item.id, pvpComercialClickup, item["Id clickup"]);
+        //insertar hora de actualizacion en formato humano
+        item["Hora actualizacion"] = new Date().toLocaleTimeString();
+      }catch(error){
+        console.log(error);
+      }
+      console.log("Id kommo: ", item.id, "PVP Comercial clickup: ", pvpComercialClickup, "PVP Comercial kommo: ", item["PVP Comercial"]);
+    }
+    else{
+      item["Actualizar en kommo"] = false;
+      //si existe el campo pvpComercialClickup.error reflear ese campo en el item
+      if(pvpComercialClickupData.error){
+        item["Detalles error"] = pvpComercialClickupData.error;
+      }
+      console.log("Son iguales, no se debe actualizar en kommo");
+      console.log("Id kommo: ", item.id, "PVP Comercial clickup: ", pvpComercialClickup, "PVP Comercial kommo: ", item["PVP Comercial"]);
+    }
+  }
+  return result;
+}
+async function getAllPvpRentaMensual() {
+
+  const data = await getAllLeadsKommoRecursive();
+  var result = [];
+  for (var i = 0; i < data.length; i++) {
+    var item = data[i];
+    const leadsPvpRentaMensual = arrayToJson(item, "PVP Renta Mensual");
+    if (leadsPvpRentaMensual) {
+      result.push(leadsPvpRentaMensual);
+    }
+  }
+  //recorrer el array de leads y pasar como parametro de la funcion getTaskClickUp el id de clickup
+  for (var i = 0; i < result.length; i++) {
+    var item = result[i];
+    
+    const rentaMensualClickupData = await getTaskClickUp(item["Id clickup"], "RENTA MENSUAL");
+    const rentaMensualClickup = rentaMensualClickupData.customFieldValue;
+    item["Renta mensual clickup"] = rentaMensualClickup;
+
+    if (rentaMensualClickup != item["PVP Renta Mensual"]) {
+      item["Actualizar en kommo"] = true;
+      console.log("No son iguales, se debe actualizar en kommo");
+      try {
+        await updatePvpRentaMensualKommo(item.id, rentaMensualClickup, item["Id clickup"]);
+        //insertar hora de actualizacion en formato humano
+        item["Hora actualizacion"] = new Date().toLocaleTimeString();
+      }catch(error){
+        console.log(error);
+      }
+      console.log("Id kommo: ", item.id, "Renta mensul clickup: ", rentaMensualClickup, "PVP renta mensual kommo: ", item["PVP Renta Mensual"]);
+    }
+    else{
+      item["Actualizar en kommo"] = false;
+      
+      if(rentaMensualClickupData.error){
+        item["Detalles error"] = rentaMensualClickupData.error;
+      }
+      console.log("Son iguales, no se debe actualizar en kommo");
+      console.log("Id kommo: ", item.id, "Renta mensul clickup: ", rentaMensualClickup, "PVP renta mensual kommo: ", item["PVP Renta Mensual"]);
+    }
+  }
+  return result;
+}
+
 //creo ruta para ver requests
 app.get("/requests", (req, res) => {
   res.json(requests);
@@ -960,7 +1152,7 @@ app.post("/pvpComercial", async (req, res) => {
   let pvpNumber = 0;
   //si existe pvpComercial, extraer el numero y eliminar el signo de dolar
   if (pvpComercial) {
-    pvpNumber = pvpComercial.replace(/\D/g, '');
+    pvpNumber = pvpComercial.replace(/\D/g, "");
   }
   console.log("pvpNumber: ", pvpNumber);
   console.log("idClickUp: ", idClickUp);
@@ -973,7 +1165,6 @@ app.post("/pvpComercial", async (req, res) => {
     console.log(JSON.stringify(error.response.data));
     res.sendStatus(500);
   }
-  
 });
 //ruta para procesar el cambio del campo renta mensual en kommo /rentaMensual?idKommo=10635172&rentaMensual=USD%202000
 app.post("/rentaMensual", async (req, res) => {
@@ -984,9 +1175,9 @@ app.post("/rentaMensual", async (req, res) => {
   let pvpNumber = 0;
   //si existe pvpRentaMensual, extraer el numero y eliminar el signo de dolar
   if (pvpRentaMensual) {
-    pvpNumber = pvpRentaMensual.replace(/\D/g, '');
+    pvpNumber = pvpRentaMensual.replace(/\D/g, "");
   }
-  console.log("pvpNumber: ", pvpNumber); 
+  console.log("pvpNumber: ", pvpNumber);
   console.log("idKommo: ", idKommo);
   console.log("pvpRentaMensual: ", pvpRentaMensual);
   try {
@@ -996,7 +1187,6 @@ app.post("/rentaMensual", async (req, res) => {
     console.log(error);
     res.sendStatus(500);
   }
-  
 });
 // Ruta actualizada con las funciones asincrónicas
 app.post("/updateFields", async (req, res) => {
@@ -1026,5 +1216,27 @@ app.post("/token", async (req, res) => {
     res.sendStatus(500).json({ error: err.message });
   }
 });
+//ruta para actualizar el campo pvp comercial en kommo
+app.get("/actualizarPvpComercial", async (req, res) => {
+  try {
+    const data = await getAllPvpComercial();
+    res.json(data);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+//ruta para actualziar renta mensual 
+app.get("/actualizarRentaMensual", async (req, res) => {
+  try {
+    const data = await getAllPvpRentaMensual();
+    res.json(data);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+//entregar archivo index.html
+app.get("/index", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+})
 // levanto el servidor en el puerto 300
 app.listen(port, () => {console.log(`Server listening at http://localhost:${port}`);});

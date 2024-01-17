@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>TOTEM | Actualizaciones</title>
+    <!-- Incluir Bootstrap (v5.3.0) desde CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Estilo para resaltar la fila en rojo */
+      .fila-con-error {
+        background-color: #ffcccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1>Acciones</h1>
+
+      <!-- Botón de Actualizar PVP -->
+      <button
+        type="button"
+        class="btn btn-primary me-2"
+        onclick="actualizarPvpComercial()"
+      >
+        Actualizar PVP
+      </button>
+
+      <!-- Botón de Actualizar Renta Mensual -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="actualizarRentaMensual()"
+      >
+        Actualizar Renta Mensual
+      </button>
+
+      <!-- Tabla para mostrar resultados -->
+      <table class="table mt-3">
+        <thead id="encabezadosTabla">
+          <!-- Los encabezados se mostrarán aquí -->
+        </thead>
+        <tbody id="resultadosTabla">
+          <!-- Los resultados se mostrarán aquí -->
+        </tbody>
+      </table>
+
+      <!-- Animación de espera -->
+      <div
+        class="spinner-border text-primary"
+        role="status"
+        id="spinner"
+        style="display: none"
+      >
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+
+    <!-- Incluir Bootstrap (v5.3.0) y Popper.js desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Tu script personalizado para manejar la ejecución de acciones -->
+    <script>
+      async function actualizarPvpComercial() {
+        borrarDatosAnteriores();
+        await actualizarDatos("/actualizarPvpComercial", [
+          "ID",
+          "Status ID",
+          "Pipeline ID",
+          "PVP Comercial",
+          "Id clickup",
+          "Pvp comercial clickup",
+          "Actualizar en Kommo",
+          "Detalles Error",
+        ]);
+      }
+
+      async function actualizarRentaMensual() {
+        borrarDatosAnteriores();
+        await actualizarDatos("/actualizarRentaMensual", [
+          "ID",
+          "Status ID",
+          "Pipeline ID",
+          "PVP Renta Mensual",
+          "Id clickup",
+          "Renta mensual clickup",
+          "Actualizar en Kommo",
+          "Detalles Error",
+        ]);
+      }
+
+      function borrarDatosAnteriores() {
+        // Limpiar la tabla y ocultar el spinner
+        document.getElementById("resultadosTabla").innerHTML = "";
+        document.getElementById("spinner").style.display = "none";
+      }
+      async function actualizarDatos(ruta, encabezados) {
+        // Mostrar la animación de espera
+        document.getElementById("spinner").style.display = "block";
+
+        try {
+          // Realizar la solicitud a la ruta interna
+          const response = await fetch(ruta);
+          if (!response.ok) {
+            throw new Error("Error al obtener los datos.");
+          }
+
+          // Obtener y mostrar los encabezados
+          mostrarEncabezados(encabezados);
+
+          // Obtener y mostrar los resultados
+          const resultados = await response.json();
+          mostrarResultados(resultados);
+        } catch (error) {
+          // Manejar errores
+          console.error(error);
+          alert("Error al obtener los datos. Por favor, inténtalo nuevamente.");
+        } finally {
+          // Ocultar la animación de espera, independientemente del resultado
+          document.getElementById("spinner").style.display = "none";
+        }
+      }
+
+      function mostrarEncabezados(encabezados) {
+        const encabezadosTabla = document.getElementById("encabezadosTabla");
+        encabezadosTabla.innerHTML = ""; // Limpiar los encabezados antes de mostrar nuevos
+
+        const fila = document.createElement("tr");
+        encabezados.forEach((encabezado) => {
+          const th = document.createElement("th");
+          th.textContent = encabezado;
+          fila.appendChild(th);
+        });
+
+        encabezadosTabla.appendChild(fila);
+      }
+
+      function mostrarResultados(resultados) {
+        const resultadosTabla = document.getElementById("resultadosTabla");
+        resultadosTabla.innerHTML = ""; // Limpiar la tabla antes de mostrar nuevos resultados
+
+        resultados.forEach((resultado) => {
+          const fila = document.createElement("tr");
+
+          for (const key in resultado) {
+            const celda = document.createElement("td");
+            celda.textContent = resultado[key];
+            fila.appendChild(celda);
+          }
+
+          // Verificar si hay detalles de error y SI EL texto es "Tarea borrada en clickup<"
+          if (
+            resultado.hasOwnProperty("Detalles error") &&
+            resultado["Detalles error"] === "Tarea borrada en clickup"
+          ) {
+            fila.classList.add("table-danger");
+          }
+
+          resultadosTabla.appendChild(fila);
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>TOTEM | Actualizaciones</title>
+    <!-- Incluir Bootstrap (v5.3.0) desde CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Estilo para resaltar la fila en rojo */
+      .fila-con-error {
+        background-color: #ffcccc;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Modal de Inicio de Sesión -->
+    <div class="modal fade" id="modalInicioSesion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesión</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulario de inicio de sesión con campos de usuario y contraseña -->
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="usuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="usuario" required>
+              </div>
+              <div class="mb-3">
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contrasena" required>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="iniciarSesion()">Iniciar Sesión</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <h1>Acciones</h1>
+
+      <!-- Botón de Actualizar PVP -->
+      <button
+        type="button"
+        class="btn btn-primary me-2"
+        onclick="verificarAutenticacion(actualizarPvpComercial)"
+      >
+        Actualizar PVP
+      </button>
+
+      <!-- Botón de Actualizar Renta Mensual -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="verificarAutenticacion(actualizarRentaMensual)"
+      >
+        Actualizar Renta Mensual
+      </button>
+
+      <!-- Tabla para mostrar resultados -->
+      <table class="table mt-3">
+        <thead id="encabezadosTabla">
+          <!-- Los encabezados se mostrarán aquí -->
+        </thead>
+        <tbody id="resultadosTabla">
+          <!-- Los resultados se mostrarán aquí -->
+        </tbody>
+      </table>
+
+      <!-- Animación de espera -->
+      <div
+        class="spinner-border text-primary"
+        role="status"
+        id="spinner"
+        style="display: none"
+      >
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+
+    <!-- Incluir Bootstrap (v5.3.0) y Popper.js desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Tu script personalizado para manejar la ejecución de acciones -->
+    <script>
+      // Función para verificar la autenticación antes de ejecutar la acción
+      function verificarAutenticacion(accion) {
+        // Mostrar el modal de inicio de sesión
+        $('#modalInicioSesion').modal('show');
+        // La función `accion` se pasará como parámetro a la función autenticar
+        document.getElementById('ingresarButton').onclick = function () {
+          autenticar(accion);
+        };
+      }
+
+      // Función para autenticar al usuario
+      function autenticar(accion) {
+        // Obtener valores de usuario y contraseña
+        const usuario = document.getElementById('usuario').value;
+        const contrasena = document.getElementById('contrasena').value;
+
+        // Puedes agregar aquí la lógica de autenticación (sencilla, ya que no es producción)
+        // Por ejemplo, verificar que el usuario sea 'admin' y la contraseña sea 'password'
+        if (usuario === 'admin' && contrasena === 'password') {
+          // Si la autenticación es exitosa, ejecutar la acción proporcionada
+          accion();
+          // Ocultar el modal de inicio de sesión
+          $('#modalInicioSesion').modal('hide');
+        } else {
+          // En caso de autenticación fallida, mostrar un mensaje de error
+          alert('Credenciales incorrectas. Por favor, inténtalo nuevamente.');
+        }
+      }
+
+      // ... Resto de tu código
+    </script>
+  </body>
+</html>

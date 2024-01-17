@@ -1,0 +1,1495 @@
+{
+    "id": "86az2p2ed",
+    "custom_id": null,
+    "custom_item_id": 0,
+    "name": "ANDOR  GRUPO LADER - LADER BYD ORELLANA/CCTV/INTRUSION/QUITO - NUEVO CONSECIONARIO BYD SISTEMA DE CCTV E INTRUSION - RENTA",
+    "text_content": "Tarea creada desde Kommo, fecha: 1/16/2024",
+    "description": "Tarea creada desde Kommo, fecha: 1/16/2024",
+    "status": {
+        "id": "subcat900800948233_s386779373_rr5greZk",
+        "status": "pendiente",
+        "color": "#87909e",
+        "orderindex": 0,
+        "type": "open"
+    },
+    "orderindex": "39720115.00000000000000000000000000000000",
+    "date_created": "1705429218180",
+    "date_updated": "1705429220275",
+    "date_closed": null,
+    "date_done": null,
+    "archived": false,
+    "creator": {
+        "id": 49639321,
+        "username": "Eduardo Rayo (Adm)",
+        "color": "#08c7e0",
+        "email": "erayo@totem.com.ec",
+        "profilePicture": null
+    },
+    "assignees": [
+        {
+            "id": 49676797,
+            "username": "JOSE BOLIVAR FLORES POSLIGUA",
+            "color": "#e040fb",
+            "initials": "JP",
+            "email": "bflores@totem.com.ec",
+            "profilePicture": null
+        }
+    ],
+    "watchers": [
+        {
+            "id": 49676797,
+            "username": "JOSE BOLIVAR FLORES POSLIGUA",
+            "color": "#e040fb",
+            "initials": "JP",
+            "email": "bflores@totem.com.ec",
+            "profilePicture": null
+        }
+    ],
+    "checklists": [],
+    "tags": [],
+    "parent": null,
+    "priority": null,
+    "due_date": null,
+    "start_date": null,
+    "points": null,
+    "time_estimate": null,
+    "time_spent": 0,
+    "custom_fields": [
+        {
+            "id": "8dfc6adf-e845-418a-86c8-14a774e958c5",
+            "name": "% Cumplimiento",
+            "type": "manual_progress",
+            "type_config": {
+                "end": 100,
+                "start": 0
+            },
+            "date_created": "1669821753474",
+            "hide_from_guests": false,
+            "value": {
+                "current": 0,
+                "percent_completed": 0
+            },
+            "required": false
+        },
+        {
+            "id": "1953fbd8-d2da-4dd2-8f1f-3d3f3274fa6c",
+            "name": "Act Doc",
+            "type": "drop_down",
+            "type_config": {
+                "default": 0,
+                "placeholder": null,
+                "new_drop_down": true,
+                "options": [
+                    {
+                        "id": "b23d5b48-75e3-43b9-99cd-c9586ab2e736",
+                        "name": "si",
+                        "color": "#2ecd6f",
+                        "orderindex": 0
+                    },
+                    {
+                        "id": "19fc6960-3b5a-4a1b-9261-8c1583be3a01",
+                        "name": "no",
+                        "color": null,
+                        "orderindex": 1
+                    }
+                ]
+            },
+            "date_created": "1692719381834",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "01da5a32-0a32-4d29-a4c1-6610984db49f",
+            "name": "Avance auto",
+            "type": "automatic_progress",
+            "type_config": {
+                "tracking": {
+                    "subtasks": true
+                },
+                "complete_on": 3,
+                "subtask_rollup": false
+            },
+            "date_created": "1666287589117",
+            "hide_from_guests": false,
+            "value": {
+                "percent_complete": 0
+            },
+            "required": false
+        },
+        {
+            "id": "88b437ed-82a3-458c-97b3-5466e041c249",
+            "name": "CLIENTE",
+            "type": "drop_down",
+            "type_config": {
+                "new_drop_down": true,
+                "options": [
+                    {
+                        "id": "7a40ca06-8b03-4875-8171-5cc496578ecb",
+                        "name": "FUMICAR",
+                        "color": null,
+                        "orderindex": 0
+                    },
+                    {
+                        "id": "d0fbeea4-326d-406d-a3b6-87af74782b5b",
+                        "name": "AYASA",
+                        "color": null,
+                        "orderindex": 1
+                    },
+                    {
+                        "id": "85a11b78-da02-41bb-8eb2-cdcbcfb79aa5",
+                        "name": "MALL DEL SOL",
+                        "color": null,
+                        "orderindex": 2
+                    },
+                    {
+                        "id": "744c5548-73ec-480c-b839-ea3bc753d1bd",
+                        "name": "DPWORLD",
+                        "color": null,
+                        "orderindex": 3
+                    },
+                    {
+                        "id": "ee6fc1b9-face-4d4d-ada0-ad1c2dba6c4e",
+                        "name": "LANEC",
+                        "color": null,
+                        "orderindex": 4
+                    },
+                    {
+                        "id": "72ec50cf-954c-4204-a8a5-514c834277fd",
+                        "name": "OMARSA",
+                        "color": null,
+                        "orderindex": 5
+                    },
+                    {
+                        "id": "82420515-eb75-4695-ab81-8e4eb773fff1",
+                        "name": "ABA",
+                        "color": null,
+                        "orderindex": 6
+                    },
+                    {
+                        "id": "5a610664-7684-451d-bbcf-82ae079825dd",
+                        "name": "ECUACULTIVOS",
+                        "color": null,
+                        "orderindex": 7
+                    },
+                    {
+                        "id": "d0783b21-5d8d-4597-b635-2e3122401dc7",
+                        "name": "AEROVIC",
+                        "color": null,
+                        "orderindex": 8
+                    },
+                    {
+                        "id": "f3f590e2-fab4-47b5-9a2e-06e802fa0217",
+                        "name": "AGROLMOS",
+                        "color": null,
+                        "orderindex": 9
+                    },
+                    {
+                        "id": "552a8dac-8370-451d-9ddc-2e97c13befc6",
+                        "name": "AIFA",
+                        "color": null,
+                        "orderindex": 10
+                    },
+                    {
+                        "id": "608abc01-350a-418f-b57a-8c02471f09ed",
+                        "name": "COUNTRY CLUB",
+                        "color": null,
+                        "orderindex": 11
+                    },
+                    {
+                        "id": "00c80bc7-1451-4c43-b882-125d82eb9546",
+                        "name": "CONTECON",
+                        "color": null,
+                        "orderindex": 12
+                    },
+                    {
+                        "id": "ea108583-e205-416f-97c9-6f7e269d4016",
+                        "name": "GRUPO ALMAR",
+                        "color": null,
+                        "orderindex": 13
+                    },
+                    {
+                        "id": "3aaa62c2-3448-4bc5-9fda-478e3b9bffbe",
+                        "name": "IMP. TOMEBAMBA",
+                        "color": null,
+                        "orderindex": 14
+                    },
+                    {
+                        "id": "ce9fff3f-f609-4b37-a826-7b0e29bc1b41",
+                        "name": "AQUAGOLD",
+                        "color": null,
+                        "orderindex": 15
+                    },
+                    {
+                        "id": "4573d6d9-da06-4f0c-9e71-1f6b0ba7b0e6",
+                        "name": "ATM",
+                        "color": null,
+                        "orderindex": 16
+                    },
+                    {
+                        "id": "a07b1413-3005-4e07-8fb4-3f9a730ba586",
+                        "name": "ATVS",
+                        "color": null,
+                        "orderindex": 17
+                    },
+                    {
+                        "id": "50efd3a8-67ca-46cd-8857-c911c9c21fbf",
+                        "name": "AUDESUR",
+                        "color": null,
+                        "orderindex": 18
+                    },
+                    {
+                        "id": "81ecc5ac-a42b-46d9-a138-81675c9d4e65",
+                        "name": "CAESA",
+                        "color": null,
+                        "orderindex": 19
+                    },
+                    {
+                        "id": "fcb6d24a-a4f8-47da-90d0-e986fcd93ce5",
+                        "name": "ECUAQUIMICA",
+                        "color": null,
+                        "orderindex": 20
+                    },
+                    {
+                        "id": "5d860821-8ff1-4f9e-bd44-b61b83264b8c",
+                        "name": "ECUASAL",
+                        "color": null,
+                        "orderindex": 21
+                    },
+                    {
+                        "id": "c52940ab-e7bc-40e8-8c72-e27e631bd2bf",
+                        "name": "HARBOR",
+                        "color": null,
+                        "orderindex": 22
+                    },
+                    {
+                        "id": "95a7ea76-52c4-41f1-80ad-b8ebe746d96d",
+                        "name": "NIRSA",
+                        "color": null,
+                        "orderindex": 23
+                    },
+                    {
+                        "id": "801fded8-b4e5-4943-8f1d-810f411a2a85",
+                        "name": "TECNOVA",
+                        "color": null,
+                        "orderindex": 24
+                    },
+                    {
+                        "id": "30247303-5304-468f-a2a3-628d5fb2ed09",
+                        "name": "SKRETING",
+                        "color": null,
+                        "orderindex": 25
+                    },
+                    {
+                        "id": "592130d1-2982-4b94-b9f9-88567b7bfa32",
+                        "name": "REYBANPAC",
+                        "color": null,
+                        "orderindex": 26
+                    },
+                    {
+                        "id": "04949915-60af-4776-b5b0-9a7a9bc1e3b4",
+                        "name": "PRODUMAR",
+                        "color": null,
+                        "orderindex": 27
+                    },
+                    {
+                        "id": "bbd60b44-fc5b-42dc-ac1b-f2b446bb0cf1",
+                        "name": "JUNTA DE BENEFICIENCIA",
+                        "color": null,
+                        "orderindex": 28
+                    },
+                    {
+                        "id": "80a67228-6aa8-4887-8de9-bb411d075121",
+                        "name": "UIDE",
+                        "color": null,
+                        "orderindex": 29
+                    },
+                    {
+                        "id": "3517e8ef-d42a-4061-8da1-c248807107ca",
+                        "name": "INMOHANSA",
+                        "color": null,
+                        "orderindex": 30
+                    },
+                    {
+                        "id": "ed3dee02-9a3b-4359-b350-368d0f657607",
+                        "name": "URB. CASA LAGUNA",
+                        "color": null,
+                        "orderindex": 31
+                    },
+                    {
+                        "id": "27f7dcbf-dc99-47ca-9236-c07300bc6696",
+                        "name": "CASA LINCE OLON",
+                        "color": null,
+                        "orderindex": 32
+                    },
+                    {
+                        "id": "d0131838-e3a0-436d-9858-fbd19f8de401",
+                        "name": "RESID. CLEMENS VONCAMPE",
+                        "color": null,
+                        "orderindex": 33
+                    },
+                    {
+                        "id": "acb66f94-3903-4b90-beda-66c8d2f8c694",
+                        "name": "CALIMMO",
+                        "color": null,
+                        "orderindex": 34
+                    },
+                    {
+                        "id": "b5346aae-3735-4ab6-8111-843fd9b69f37",
+                        "name": "PLUMONT",
+                        "color": null,
+                        "orderindex": 35
+                    },
+                    {
+                        "id": "2b098850-dab0-4ba5-a062-aa54beb65c12",
+                        "name": "CONSAVE",
+                        "color": null,
+                        "orderindex": 36
+                    },
+                    {
+                        "id": "9064d16d-b340-40e7-8745-59cd185c5b11",
+                        "name": "YEKATOP",
+                        "color": null,
+                        "orderindex": 37
+                    },
+                    {
+                        "id": "e328af97-c84e-489b-9c7c-a345c95d4ccc",
+                        "name": "CABEROPIN",
+                        "color": null,
+                        "orderindex": 38
+                    },
+                    {
+                        "id": "b27c6b89-df51-416f-b621-0f37b82527dc",
+                        "name": "YMELMAR",
+                        "color": null,
+                        "orderindex": 39
+                    },
+                    {
+                        "id": "875dec36-7d3c-44e3-92c5-9287ad15428a",
+                        "name": "CIMINICORP",
+                        "color": null,
+                        "orderindex": 40
+                    },
+                    {
+                        "id": "d69d2535-503c-42b1-9799-70e303fafd2a",
+                        "name": "NAVARONE",
+                        "color": null,
+                        "orderindex": 41
+                    },
+                    {
+                        "id": "611e3b47-d20e-4c9b-b6ab-89b70e299e64",
+                        "name": "INGENIO SAN CARLOS",
+                        "color": null,
+                        "orderindex": 42
+                    },
+                    {
+                        "id": "8e71c4bb-fcaa-4e5d-b4a0-6d57cd317509",
+                        "name": "EMAULME",
+                        "color": null,
+                        "orderindex": 43
+                    },
+                    {
+                        "id": "e0ee994a-c5eb-4768-a418-38637d7bb25c",
+                        "name": "IASA",
+                        "color": null,
+                        "orderindex": 44
+                    },
+                    {
+                        "id": "9ce9a127-9ba7-47bb-87ef-d239159afbed",
+                        "name": "QUIMPAC",
+                        "color": null,
+                        "orderindex": 45
+                    },
+                    {
+                        "id": "1d49c0d2-539a-4728-a1d5-b98b1293a214",
+                        "name": "EQUITRANSA",
+                        "color": null,
+                        "orderindex": 46
+                    },
+                    {
+                        "id": "0f51295e-2a2c-4329-817b-21d2e13007fe",
+                        "name": "GRUPO PROVENZANA",
+                        "color": null,
+                        "orderindex": 47
+                    },
+                    {
+                        "id": "80f985e9-1bff-4449-a830-f7b82ac4f4c3",
+                        "name": "URB. TORRE DEL SOL",
+                        "color": null,
+                        "orderindex": 48
+                    },
+                    {
+                        "id": "3b66c215-b36d-4373-b213-0cfc4b1ef1b3",
+                        "name": "EDIF. GALICIA",
+                        "color": null,
+                        "orderindex": 49
+                    },
+                    {
+                        "id": "46317e3a-68f6-4cd5-be4a-4069c2b323a0",
+                        "name": "RESID. ROJAS LINCE",
+                        "color": null,
+                        "orderindex": 50
+                    },
+                    {
+                        "id": "a4f02fee-1845-4381-8439-74baffdb6570",
+                        "name": "SOTONOVO",
+                        "color": null,
+                        "orderindex": 51
+                    },
+                    {
+                        "id": "320db5d9-9438-418b-a933-02e7c9de7ac4",
+                        "name": "GRUPO LADER",
+                        "color": null,
+                        "orderindex": 52
+                    },
+                    {
+                        "id": "7969466f-5d59-45a7-9edd-019d9f0f5a91",
+                        "name": "GRUPO BURGOS",
+                        "color": null,
+                        "orderindex": 53
+                    },
+                    {
+                        "id": "9d6faf01-51b0-40a5-a423-2156e7672828",
+                        "name": "MAREAUTO",
+                        "color": null,
+                        "orderindex": 54
+                    },
+                    {
+                        "id": "859cb0d9-c251-4e2e-8818-4e3aa609f36f",
+                        "name": "CASABACA",
+                        "color": null,
+                        "orderindex": 55
+                    },
+                    {
+                        "id": "4ec04365-18a9-4896-916d-6ad082a89c82",
+                        "name": "EDIF MILROX",
+                        "color": null,
+                        "orderindex": 56
+                    },
+                    {
+                        "id": "afdcd963-926b-4de5-8f62-69592fe9d47c",
+                        "name": "CAMP PUEMBO",
+                        "color": null,
+                        "orderindex": 57
+                    },
+                    {
+                        "id": "43daae01-9f1f-4f38-b12b-9c396c50fa4f",
+                        "name": "CEPSA",
+                        "color": null,
+                        "orderindex": 58
+                    },
+                    {
+                        "id": "ba1a89ba-5f29-4de1-b29e-e2fe2672999c",
+                        "name": "ADITMAQ",
+                        "color": null,
+                        "orderindex": 59
+                    },
+                    {
+                        "id": "0f3439ab-ab60-41c6-ac71-0eb03e43e82e",
+                        "name": "PARQ METROPOLITANO",
+                        "color": null,
+                        "orderindex": 60
+                    },
+                    {
+                        "id": "919fc5e9-8cc3-421e-8407-f9dea3ed815f",
+                        "name": "EL CONDADO",
+                        "color": null,
+                        "orderindex": 61
+                    },
+                    {
+                        "id": "234ddcef-0483-4f15-8eff-dd9ec27f47ed",
+                        "name": "ANTONIO HANNA",
+                        "color": null,
+                        "orderindex": 62
+                    },
+                    {
+                        "id": "c29e3256-d67b-4ac1-96a5-a624de5cacac",
+                        "name": "MARVIL",
+                        "color": null,
+                        "orderindex": 63
+                    },
+                    {
+                        "id": "791fa407-8cf4-4651-94dc-d83ded2ed6f9",
+                        "name": "LA COSTA",
+                        "color": null,
+                        "orderindex": 64
+                    },
+                    {
+                        "id": "2c6bfd24-4fce-4a33-a515-82c27f447717",
+                        "name": "PINTURA UNIDAS",
+                        "color": null,
+                        "orderindex": 65
+                    },
+                    {
+                        "id": "c870b96e-7efa-4b48-88c7-00f4909eed70",
+                        "name": "EDIF EL NOGAL",
+                        "color": null,
+                        "orderindex": 66
+                    },
+                    {
+                        "id": "2288cc39-3538-4dba-823c-dfc49020a4e2",
+                        "name": "SERTEPEC",
+                        "color": null,
+                        "orderindex": 67
+                    },
+                    {
+                        "id": "68a36a2b-5f57-4cfd-adc7-fe2d0ca10f3a",
+                        "name": "NATURA",
+                        "color": null,
+                        "orderindex": 68
+                    },
+                    {
+                        "id": "1cfff238-bb6f-4d01-babb-b58290f84d61",
+                        "name": "LA BIFERIA",
+                        "color": null,
+                        "orderindex": 69
+                    },
+                    {
+                        "id": "ea2fc4fb-c52b-4b0a-9441-590cdcf947ea",
+                        "name": "DITECA",
+                        "color": null,
+                        "orderindex": 70
+                    },
+                    {
+                        "id": "a8067f4b-375b-4e53-9b17-27c7c3840492",
+                        "name": "SEDEMI",
+                        "color": null,
+                        "orderindex": 71
+                    },
+                    {
+                        "id": "65be43af-9545-42b7-a89d-44872a9c0431",
+                        "name": "ROSADEX",
+                        "color": null,
+                        "orderindex": 72
+                    },
+                    {
+                        "id": "a3bc9d94-3de8-4e97-b3b2-6097abdbcb94",
+                        "name": "MOLINOS CHAMPION",
+                        "color": null,
+                        "orderindex": 73
+                    },
+                    {
+                        "id": "637a1353-353b-4259-b7d2-e05a32d0b719",
+                        "name": "LANGOSMAR",
+                        "color": null,
+                        "orderindex": 74
+                    },
+                    {
+                        "id": "49fad0be-f54f-4caf-afc2-a85b9d098407",
+                        "name": "AQUALABO",
+                        "color": null,
+                        "orderindex": 75
+                    },
+                    {
+                        "id": "92814004-7dd3-4b78-afdb-73f61e4bacf3",
+                        "name": "FADESA",
+                        "color": null,
+                        "orderindex": 76
+                    },
+                    {
+                        "id": "af4566f1-8839-47de-9316-cb38c667083d",
+                        "name": "LINCE ROJAS",
+                        "color": null,
+                        "orderindex": 77
+                    },
+                    {
+                        "id": "e1e4681f-4540-42c2-8672-b74170e68c59",
+                        "name": "CELEC",
+                        "color": null,
+                        "orderindex": 78
+                    },
+                    {
+                        "id": "937f6fc7-b5ed-4776-9ae7-f1aa9c96dcce",
+                        "name": "SENI",
+                        "color": null,
+                        "orderindex": 79
+                    },
+                    {
+                        "id": "7210b4ca-aa09-44ef-854b-229614c005e3",
+                        "name": "DIMULTI",
+                        "color": null,
+                        "orderindex": 80
+                    },
+                    {
+                        "id": "a35799f6-1e1b-4e28-8417-38544b8322c1",
+                        "name": "ADELCA",
+                        "color": null,
+                        "orderindex": 81
+                    },
+                    {
+                        "id": "764d2c89-f20e-4978-94a4-22c6e3f24e17",
+                        "name": "TROPICAL FRUIT",
+                        "color": null,
+                        "orderindex": 82
+                    },
+                    {
+                        "id": "b0343da0-7938-46cf-9c71-30062ddc9912",
+                        "name": "COOP LA DOLOROSA",
+                        "color": null,
+                        "orderindex": 83
+                    },
+                    {
+                        "id": "f7a499ca-030e-418c-8dd5-d88ae9f3957c",
+                        "name": "FERTISA",
+                        "color": null,
+                        "orderindex": 84
+                    },
+                    {
+                        "id": "a55ddef9-7a9d-436b-b270-f9da682adbb6",
+                        "name": "DUIFAN",
+                        "color": null,
+                        "orderindex": 85
+                    },
+                    {
+                        "id": "7da961d0-2b01-4b87-b59f-9489a2ea1e8b",
+                        "name": "LOTERIA NACIONAL",
+                        "color": null,
+                        "orderindex": 86
+                    },
+                    {
+                        "id": "40773d8f-6cc5-4622-98a2-c0c9c480302f",
+                        "name": "SONGA",
+                        "color": null,
+                        "orderindex": 87
+                    },
+                    {
+                        "id": "79992763-92cc-4066-b14e-eda8e53a3226",
+                        "name": "TELCONET",
+                        "color": null,
+                        "orderindex": 88
+                    },
+                    {
+                        "id": "8ee436e9-df9e-42e0-b9a2-aea38bd88f89",
+                        "name": "CALL MARKET",
+                        "color": null,
+                        "orderindex": 89
+                    },
+                    {
+                        "id": "a4122799-b6d3-428d-a572-d8cf528d1871",
+                        "name": "PARQUE HISTORICO",
+                        "color": null,
+                        "orderindex": 90
+                    },
+                    {
+                        "id": "eccf596a-e1f5-44f7-8bed-ec076faaf36f",
+                        "name": "URB RIBERAS DEL BATAN",
+                        "color": null,
+                        "orderindex": 91
+                    },
+                    {
+                        "id": "84ab6ff7-1dc8-4456-bec1-eaa1ffe6617d",
+                        "name": "MINUTOCORP",
+                        "color": null,
+                        "orderindex": 92
+                    },
+                    {
+                        "id": "8ca04861-88ef-4fcb-aa0c-79ae55ab49c8",
+                        "name": "CLINICA SAN MARCOS",
+                        "color": null,
+                        "orderindex": 93
+                    },
+                    {
+                        "id": "e0aaa33b-b7f6-46da-9a19-7c353d5d031b",
+                        "name": "DIORVET",
+                        "color": null,
+                        "orderindex": 94
+                    },
+                    {
+                        "id": "9a9b87a8-e754-471e-b8a2-cbbceb1c2305",
+                        "name": "CERVECERIA NACIONAL",
+                        "color": null,
+                        "orderindex": 95
+                    },
+                    {
+                        "id": "861f0d92-9482-4c74-9385-76450fca078d",
+                        "name": "BRUMESA",
+                        "color": null,
+                        "orderindex": 96
+                    },
+                    {
+                        "id": "e94bd896-ac48-4315-84dd-b9f86d4bb03d",
+                        "name": "DKMS",
+                        "color": null,
+                        "orderindex": 97
+                    },
+                    {
+                        "id": "86c5908a-8ba8-4aef-9ccb-d4a644820ae0",
+                        "name": "PARQUE DE LA PAZ",
+                        "color": null,
+                        "orderindex": 98
+                    },
+                    {
+                        "id": "f2b3c008-877f-4532-b810-5a478b45d62e",
+                        "name": "CHURETE",
+                        "color": null,
+                        "orderindex": 99
+                    },
+                    {
+                        "id": "80cb3623-a156-41e2-9ac9-9cdd9b51b327",
+                        "name": "CANTERA CERRO CLUB",
+                        "color": null,
+                        "orderindex": 100
+                    },
+                    {
+                        "id": "00217a8c-bea5-420c-9afe-1e24ecb84f5b",
+                        "name": "PLASTICOS ECUATORIANOS",
+                        "color": null,
+                        "orderindex": 101
+                    },
+                    {
+                        "id": "18d06148-1566-4835-ac66-f178645f18a0",
+                        "name": "CONSORC SHUSHUFINDI",
+                        "color": null,
+                        "orderindex": 102
+                    },
+                    {
+                        "id": "1620f044-881f-4e79-bb8f-f7130bea2d75",
+                        "name": "CAM LAS DELICIAS",
+                        "color": null,
+                        "orderindex": 103
+                    },
+                    {
+                        "id": "e6f7e83f-22d1-4d10-8121-56d65176a45e",
+                        "name": "URB. EL PARQUE",
+                        "color": null,
+                        "orderindex": 104
+                    },
+                    {
+                        "id": "293a6c60-9485-4d47-95a3-df01272155fd",
+                        "name": "SEGUVIAL",
+                        "color": null,
+                        "orderindex": 105
+                    },
+                    {
+                        "id": "8bca5401-c093-47f3-93b5-de2c5999d34d",
+                        "name": "SEVIMA",
+                        "color": null,
+                        "orderindex": 106
+                    },
+                    {
+                        "id": "bc05e2ff-2a0d-4377-b656-6fe6a0d524a8",
+                        "name": "SEVISE",
+                        "color": null,
+                        "orderindex": 107
+                    },
+                    {
+                        "id": "5f83e406-ce74-4905-944b-ac7ca01ebae4",
+                        "name": "BLASTI",
+                        "color": null,
+                        "orderindex": 108
+                    },
+                    {
+                        "id": "b22b93d8-8f09-4f1c-983e-4300f278e066",
+                        "name": "UNICOL",
+                        "color": null,
+                        "orderindex": 109
+                    },
+                    {
+                        "id": "2f0ee57a-a2f3-4a8d-a936-06437e80112d",
+                        "name": "ECOKAKAO",
+                        "color": null,
+                        "orderindex": 110
+                    },
+                    {
+                        "id": "d17b9a3e-fcc2-494d-ace7-a16e9a88f9ec",
+                        "name": "PORTONOVO",
+                        "color": null,
+                        "orderindex": 111
+                    },
+                    {
+                        "id": "1fff790c-2c3b-46ef-aa7a-f4b3170dad2d",
+                        "name": "DIOSMAR",
+                        "color": null,
+                        "orderindex": 112
+                    },
+                    {
+                        "id": "72e3dcd8-d941-4655-b1f6-bc23a334a576",
+                        "name": "EMPAGRAN",
+                        "color": null,
+                        "orderindex": 113
+                    },
+                    {
+                        "id": "81bd105e-edfa-4612-99a9-0ef191e18be2",
+                        "name": "TRASELEC",
+                        "color": null,
+                        "orderindex": 114
+                    },
+                    {
+                        "id": "ee1b09bc-ad10-43d7-a71a-7cc02fde7e8f",
+                        "name": "MUEBLES EL BOSQUE",
+                        "color": null,
+                        "orderindex": 115
+                    },
+                    {
+                        "id": "5d66fb8a-1aa5-4876-a382-26a4187ca212",
+                        "name": "GRAFIMPAC",
+                        "color": null,
+                        "orderindex": 116
+                    },
+                    {
+                        "id": "9ab980be-80a1-455f-a0c3-dd956c536066",
+                        "name": "TCE",
+                        "color": null,
+                        "orderindex": 117
+                    },
+                    {
+                        "id": "a029fbfc-5b0f-4cd6-a12e-62e0977c197f",
+                        "name": "DELTA DELFINI",
+                        "color": null,
+                        "orderindex": 118
+                    },
+                    {
+                        "id": "f5134a8d-e57a-48f7-a973-750a53fd7bbb",
+                        "name": "URB AKANA",
+                        "color": null,
+                        "orderindex": 119
+                    },
+                    {
+                        "id": "62ea8a2c-46da-464f-aefc-5cca4ec03c7a",
+                        "name": "PANTRUSCO",
+                        "color": null,
+                        "orderindex": 120
+                    },
+                    {
+                        "id": "f6f5da66-a47c-43a1-a28b-938893c97e48",
+                        "name": "SOTILEZA",
+                        "color": null,
+                        "orderindex": 121
+                    },
+                    {
+                        "id": "41477f74-99cc-465a-a196-36a7186cab90",
+                        "name": "OLON ",
+                        "color": null,
+                        "orderindex": 122
+                    },
+                    {
+                        "id": "2249b2c4-f28d-470c-a44f-a55001421a54",
+                        "name": "CONSORCIO NOBIS",
+                        "color": null,
+                        "orderindex": 123
+                    },
+                    {
+                        "id": "32592067-6ceb-41e9-a23c-84232d344555",
+                        "name": "RESD. JURI",
+                        "color": null,
+                        "orderindex": 124
+                    },
+                    {
+                        "id": "6e74be80-e3ba-412e-8a3c-f17e8a5a5d62",
+                        "name": "BERAQUA",
+                        "color": null,
+                        "orderindex": 125
+                    },
+                    {
+                        "id": "4cd64955-9d68-41f6-ab87-4fac32d2ccac",
+                        "name": "HOST PUEMBO",
+                        "color": null,
+                        "orderindex": 126
+                    },
+                    {
+                        "id": "1ad29c70-fc94-4181-81eb-c3b1f12ff036",
+                        "name": "TLD",
+                        "color": null,
+                        "orderindex": 127
+                    },
+                    {
+                        "id": "68df2964-9b9b-4924-86e5-aed713093ad1",
+                        "name": "AIRES DEL BATAN",
+                        "color": null,
+                        "orderindex": 128
+                    },
+                    {
+                        "id": "8fc0247e-e00c-4575-9cfd-cc71cc1e9e0a",
+                        "name": "EL ALGARROBO",
+                        "color": null,
+                        "orderindex": 129
+                    },
+                    {
+                        "id": "654ad2fa-833b-4f76-a8b0-5ad048d49384",
+                        "name": "BIOGEMAR",
+                        "color": null,
+                        "orderindex": 130
+                    },
+                    {
+                        "id": "afd226cd-673a-48e0-b19f-77670f166089",
+                        "name": "CAMPOSOL",
+                        "color": null,
+                        "orderindex": 131
+                    },
+                    {
+                        "id": "ea57c530-64f2-4a07-b6af-d874859e0bbd",
+                        "name": "RESIDENCIA",
+                        "color": null,
+                        "orderindex": 132
+                    },
+                    {
+                        "id": "d807d735-08a6-4641-9f2e-95543422a325",
+                        "name": "CASTILLO AMAGUAÑA",
+                        "color": null,
+                        "orderindex": 133
+                    },
+                    {
+                        "id": "dd3946db-c9a2-46d4-b19d-a386c7d48714",
+                        "name": "CITIKOLD",
+                        "color": null,
+                        "orderindex": 134
+                    },
+                    {
+                        "id": "b68de2f4-dfec-4313-99ee-e223cf065b11",
+                        "name": "SEGURO PATRIA",
+                        "color": null,
+                        "orderindex": 135
+                    },
+                    {
+                        "id": "d2c3ff5c-bdbc-4128-a753-cd990633e6b5",
+                        "name": "ECUABULK",
+                        "color": null,
+                        "orderindex": 136
+                    },
+                    {
+                        "id": "461961d8-9121-44fb-b636-e0974257fd90",
+                        "name": "ECUAPAR",
+                        "color": null,
+                        "orderindex": 137
+                    },
+                    {
+                        "id": "ed53d14a-ca94-443b-9bb3-11bcc56b4869",
+                        "name": "ERNESTO FARAH",
+                        "color": null,
+                        "orderindex": 138
+                    },
+                    {
+                        "id": "ba461f5a-3d95-41db-8368-aa184f5b3c4f",
+                        "name": "URB SOTILEZA",
+                        "color": null,
+                        "orderindex": 139
+                    },
+                    {
+                        "id": "d603b92a-f78d-4758-b73b-465fc2e4be5d",
+                        "name": "FERROTORE",
+                        "color": null,
+                        "orderindex": 140
+                    },
+                    {
+                        "id": "679fea72-bff5-4214-acad-d4fc81cfa2bf",
+                        "name": "GRUPO NOBOA",
+                        "color": null,
+                        "orderindex": 141
+                    },
+                    {
+                        "id": "0f8f72d1-0e38-499c-a928-49e4acb5db79",
+                        "name": "GRUPO PINO",
+                        "color": null,
+                        "orderindex": 142
+                    },
+                    {
+                        "id": "5db9d3d2-b327-4a6b-9292-62c6f02f1920",
+                        "name": "IVAN BOHMAN",
+                        "color": null,
+                        "orderindex": 143
+                    },
+                    {
+                        "id": "5a336844-7883-423b-aa24-b782d1fb41e4",
+                        "name": "MARPESCA",
+                        "color": null,
+                        "orderindex": 144
+                    },
+                    {
+                        "id": "3e3d80aa-7cff-4f9e-a3ad-f0717fa329b8",
+                        "name": "NIGERIA",
+                        "color": null,
+                        "orderindex": 145
+                    },
+                    {
+                        "id": "9255c612-db61-4a9b-9f24-352877a91815",
+                        "name": "POLICENTRO",
+                        "color": null,
+                        "orderindex": 146
+                    },
+                    {
+                        "id": "83a09a6c-d828-4a18-90b0-6e8f33594e5f",
+                        "name": "PRONOBIS",
+                        "color": null,
+                        "orderindex": 147
+                    },
+                    {
+                        "id": "560311e6-f69b-4382-93c5-1a31f14067b6",
+                        "name": "QC TERMALES",
+                        "color": null,
+                        "orderindex": 148
+                    },
+                    {
+                        "id": "a82edf9f-53a4-4f62-a418-af019f1c1bb2",
+                        "name": "RED HACIENDAS",
+                        "color": null,
+                        "orderindex": 149
+                    },
+                    {
+                        "id": "36498f11-4bd4-4a94-ad26-f3c0dd74b1db",
+                        "name": "TONICORP",
+                        "color": null,
+                        "orderindex": 150
+                    },
+                    {
+                        "id": "f1a6e969-d41a-4f85-884b-f4518487de4a",
+                        "name": "ULOG",
+                        "color": null,
+                        "orderindex": 151
+                    },
+                    {
+                        "id": "f357ab63-0043-4352-80c1-7579c96df3e2",
+                        "name": "URB. PORTON RIO",
+                        "color": null,
+                        "orderindex": 152
+                    },
+                    {
+                        "id": "255dfd8f-efed-44fc-9436-cde4efeb7e94",
+                        "name": "URBANIZACIÓN",
+                        "color": null,
+                        "orderindex": 153
+                    },
+                    {
+                        "id": "f011a36c-e0ff-4677-9e04-3080e1fd2fb1",
+                        "name": "PLAZA MARQUEZINA",
+                        "color": null,
+                        "orderindex": 154
+                    },
+                    {
+                        "id": "dc506567-4acb-4eb9-86d9-33c4cd25de3e",
+                        "name": "AGRIPLAZA",
+                        "color": null,
+                        "orderindex": 155
+                    },
+                    {
+                        "id": "dfe7686e-ad16-457b-9fc4-5d8974ccecf2",
+                        "name": "SALINOPOLIS",
+                        "color": null,
+                        "orderindex": 156
+                    },
+                    {
+                        "id": "411e78a5-904d-4b3b-a73c-8425b13307c8",
+                        "name": "AGROMARINA",
+                        "color": null,
+                        "orderindex": 157
+                    },
+                    {
+                        "id": "fc4812cb-922b-49be-be82-21a13768f8b4",
+                        "name": "URVASEO",
+                        "color": null,
+                        "orderindex": 158
+                    },
+                    {
+                        "id": "309f352a-10a6-4a0b-84cc-cac5dcc9d5b8",
+                        "name": "TOTAL SEAFOOD",
+                        "color": null,
+                        "orderindex": 159
+                    },
+                    {
+                        "id": "d0391619-a55a-4a1f-bda9-d0017e77d637",
+                        "name": "SAVIMA",
+                        "color": null,
+                        "orderindex": 160
+                    },
+                    {
+                        "id": "9ed81e74-9641-4210-8420-7ad857709955",
+                        "name": "SEVIDU",
+                        "color": null,
+                        "orderindex": 161
+                    },
+                    {
+                        "id": "4e0dcf1e-1a3a-47aa-9126-6222ec4ae617",
+                        "name": "SENAE",
+                        "color": null,
+                        "orderindex": 162
+                    },
+                    {
+                        "id": "aa4a6a25-8ed4-4641-98f6-dc22bf37c238",
+                        "name": "RFS",
+                        "color": null,
+                        "orderindex": 163
+                    },
+                    {
+                        "id": "ea09f036-029d-4c8b-a40b-4bc99674c665",
+                        "name": "PLAZA HARBOR",
+                        "color": null,
+                        "orderindex": 164
+                    },
+                    {
+                        "id": "4b21e250-5fd0-44c6-9c89-8979f4c9e0b7",
+                        "name": "NATURISA",
+                        "color": null,
+                        "orderindex": 165
+                    },
+                    {
+                        "id": "3954fa6a-7e2a-4433-b201-962ca6f69a30",
+                        "name": "MARTHA ROBLES",
+                        "color": null,
+                        "orderindex": 166
+                    },
+                    {
+                        "id": "cb706ecf-41ae-44e0-a29a-a278ad89b2a9",
+                        "name": "JABONERIA WILSON",
+                        "color": null,
+                        "orderindex": 167
+                    },
+                    {
+                        "id": "9a42475d-7c68-4a66-994e-21a49c6ff734",
+                        "name": "HALLIBURTON",
+                        "color": null,
+                        "orderindex": 168
+                    },
+                    {
+                        "id": "7fbdeaab-fe96-4709-9533-6b8da2b13907",
+                        "name": "GRUPO SUPERIOR",
+                        "color": null,
+                        "orderindex": 169
+                    },
+                    {
+                        "id": "5bffb1cc-9501-403f-939e-a5b070d09a2b",
+                        "name": "AMC",
+                        "color": null,
+                        "orderindex": 170
+                    },
+                    {
+                        "id": "d921b1c7-7e13-47ec-a32b-6f0bc47da875",
+                        "name": "GRUPO CHAMPMAR",
+                        "color": null,
+                        "orderindex": 171
+                    },
+                    {
+                        "id": "937f7807-5cf0-4e6c-88d8-82e8b2721660",
+                        "name": "ECUADOR OVERSEAS",
+                        "color": null,
+                        "orderindex": 172
+                    },
+                    {
+                        "id": "f051b65e-181b-40bf-a709-f38d2908d097",
+                        "name": "CONJUNTO EL CANTARO",
+                        "color": null,
+                        "orderindex": 173
+                    },
+                    {
+                        "id": "a13e07da-8e2a-46b3-a48d-32ab14b8e445",
+                        "name": "CONECEL",
+                        "color": null,
+                        "orderindex": 174
+                    },
+                    {
+                        "id": "c684b7e5-d4cb-44a3-9d3e-df802669abc3",
+                        "name": "BLUE AIR TECHNOLOGY",
+                        "color": null,
+                        "orderindex": 175
+                    },
+                    {
+                        "id": "14fce6f6-4a7d-4fe2-88e7-2973daf9616a",
+                        "name": "AEROAGRIPAC",
+                        "color": null,
+                        "orderindex": 176
+                    },
+                    {
+                        "id": "d2649ecb-8c2f-4c07-96f0-84edcc4106ae",
+                        "name": "AGROAEREO",
+                        "color": null,
+                        "orderindex": 177
+                    },
+                    {
+                        "id": "6260bf36-cdda-429a-b0b8-55dca9a71838",
+                        "name": "ALMACENARIA PDI",
+                        "color": null,
+                        "orderindex": 178
+                    },
+                    {
+                        "id": "233c745c-a0ee-4e54-8052-60941fb334b6",
+                        "name": "ALMANGLA",
+                        "color": null,
+                        "orderindex": 179
+                    },
+                    {
+                        "id": "e581cfe6-f57c-4a1c-b08d-f8728feea4e6",
+                        "name": "ANDIPUERTO",
+                        "color": null,
+                        "orderindex": 180
+                    },
+                    {
+                        "id": "cca2e8af-0864-4cec-b68e-8c4280ae8fcc",
+                        "name": "AUTOMOTORES CONTINENTAL",
+                        "color": null,
+                        "orderindex": 181
+                    }
+                ]
+            },
+            "date_created": "1700771329436",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "29e3ebfd-8d3e-4776-9107-37bae6ab687c",
+            "name": "Cumplimiento auto",
+            "type": "automatic_progress",
+            "type_config": {
+                "tracking": {
+                    "subtasks": true,
+                    "checklists": true,
+                    "assigned_comments": true
+                },
+                "complete_on": 3,
+                "subtask_rollup": false
+            },
+            "date_created": "1697733240906",
+            "hide_from_guests": false,
+            "value": {
+                "percent_complete": 0
+            },
+            "required": false
+        },
+        {
+            "id": "6ba408a7-009f-4f60-a7dd-93e7b8c86a17",
+            "name": "DIAS EN PROGRESO",
+            "type": "formula",
+            "type_config": {
+                "simple": false,
+                "formula": "DAYS(TODAY(),TASK_CREATED)",
+                "version": "1.6",
+                "is_dynamic": true,
+                "return_types": [
+                    "number"
+                ],
+                "calculation_state": "ready"
+            },
+            "date_created": "1666806795139",
+            "hide_from_guests": false,
+            "value": 1,
+            "required": false
+        },
+        {
+            "id": "15f9515b-3e6f-4575-a1d5-6b4a07506f27",
+            "name": "DURACIÓN ",
+            "type": "date",
+            "type_config": {},
+            "date_created": "1677792589045",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "d30a4062-baad-4ebb-8007-321e3ccdce14",
+            "name": "Dias transcurridos",
+            "type": "formula",
+            "type_config": {
+                "simple": false,
+                "formula": "NETWORKDAYS(TASK_START_DATE,TODAY())",
+                "version": "1.6",
+                "is_dynamic": true,
+                "return_types": [
+                    "number"
+                ],
+                "calculation_state": "ready"
+            },
+            "date_created": "1666806999839",
+            "hide_from_guests": false,
+            "value": 1,
+            "required": false
+        },
+        {
+            "id": "2e8a5b02-75e6-48b2-be77-1a7992d7ff29",
+            "name": "Estado Kommo",
+            "type": "short_text",
+            "type_config": {},
+            "date_created": "1699478948609",
+            "hide_from_guests": false,
+            "value": "Pendiente",
+            "required": false
+        },
+        {
+            "id": "34ef59bd-52d2-4c17-880f-846bc7dfa818",
+            "name": "FECHA INICIO",
+            "type": "date",
+            "type_config": {},
+            "date_created": "1681143389833",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "3f10177c-aaff-4e95-b2e4-9c185d8269b4",
+            "name": "Fecha",
+            "type": "date",
+            "type_config": {},
+            "date_created": "1689094771032",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "f85c1750-6844-428e-860d-27bd5b8c6773",
+            "name": "Fecha de creacion en Kommo",
+            "type": "date",
+            "type_config": {},
+            "date_created": "1699463036175",
+            "hide_from_guests": false,
+            "value": "1705429217890",
+            "required": false
+        },
+        {
+            "id": "3fdba457-a671-47d8-8e7c-679c51e118bf",
+            "name": "Fecha envio cotizacion",
+            "type": "date",
+            "type_config": {},
+            "date_created": "1699463927402",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "27317d59-217e-4bac-9b5c-b62c1bb9d8ae",
+            "name": "GTT",
+            "type": "short_text",
+            "type_config": {},
+            "date_created": "1689876900997",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "25dcdffe-eb04-450e-836d-d45c6f02d597",
+            "name": "Id kommo",
+            "type": "short_text",
+            "type_config": {},
+            "date_created": "1699391887297",
+            "hide_from_guests": false,
+            "value": "12094150",
+            "required": false
+        },
+        {
+            "id": "524d6c56-f6ad-422b-8bcb-f5d150b6a588",
+            "name": "PVP comercial",
+            "type": "currency",
+            "type_config": {
+                "default": null,
+                "precision": 2,
+                "currency_type": "USD"
+            },
+            "date_created": "1679331615280",
+            "hide_from_guests": true,
+            "value": "0",
+            "required": false
+        },
+        {
+            "id": "f3c4fd75-cbb2-4218-92ec-f13236ffdcf6",
+            "name": "RENTA MENSUAL",
+            "type": "currency",
+            "type_config": {
+                "default": null,
+                "precision": 2,
+                "currency_type": "USD"
+            },
+            "date_created": "1689023086837",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "34f2d81c-2308-4c8e-8018-ced1df2125c5",
+            "name": "RETRASO",
+            "type": "formula",
+            "type_config": {
+                "simple": false,
+                "formula": "NETWORKDAYS(TASK_DUE_DATE,TODAY())",
+                "version": "1.6",
+                "is_dynamic": true,
+                "return_types": [
+                    "number"
+                ],
+                "calculation_state": "ready"
+            },
+            "date_created": "1681144642110",
+            "hide_from_guests": false,
+            "value": 1,
+            "required": false
+        },
+        {
+            "id": "21433403-f259-4794-9a74-dc8e3aea6469",
+            "name": "Usuario creador Kommo",
+            "type": "short_text",
+            "type_config": {},
+            "date_created": "1699464212367",
+            "hide_from_guests": false,
+            "value": "Carlos Francisco Teran",
+            "required": false
+        },
+        {
+            "id": "122897aa-5c1a-450f-916c-7f67fd2cc88a",
+            "name": "VENDEDOR",
+            "type": "users",
+            "type_config": {
+                "single_user": false,
+                "include_groups": null,
+                "include_guests": true,
+                "include_team_members": true
+            },
+            "date_created": "1689286617960",
+            "hide_from_guests": false,
+            "required": false
+        },
+        {
+            "id": "175162d2-39c2-4634-9ba0-e7013443a093",
+            "name": "act",
+            "type": "drop_down",
+            "type_config": {
+                "default": 0,
+                "placeholder": null,
+                "new_drop_down": true,
+                "options": [
+                    {
+                        "id": "6056d5b4-13f1-4014-8923-4180bc6c5b28",
+                        "name": "si",
+                        "color": "#fff",
+                        "orderindex": 0
+                    }
+                ]
+            },
+            "date_created": "1691073047065",
+            "hide_from_guests": false,
+            "required": false
+        }
+    ],
+    "dependencies": [],
+    "linked_tasks": [],
+    "locations": [],
+    "team_id": "31591938",
+    "url": "https://app.clickup.com/t/86az2p2ed",
+    "sharing": {
+        "public": false,
+        "public_share_expires_on": null,
+        "public_fields": [
+            "assignees",
+            "priority",
+            "due_date",
+            "content",
+            "comments",
+            "attachments",
+            "customFields",
+            "subtasks",
+            "tags",
+            "checklists",
+            "coverimage"
+        ],
+        "token": null,
+        "seo_optimized": false
+    },
+    "permission_level": "create",
+    "list": {
+        "id": "900800948233",
+        "name": "QUITOTEM - Proyectos",
+        "access": true
+    },
+    "project": {
+        "id": "90080496045",
+        "name": "Proyectos 2023",
+        "hidden": false,
+        "access": true
+    },
+    "folder": {
+        "id": "90080496045",
+        "name": "Proyectos 2023",
+        "hidden": false,
+        "access": true
+    },
+    "space": {
+        "id": "55631172"
+    },
+    "attachments": []
+}
