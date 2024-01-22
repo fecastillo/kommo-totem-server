@@ -316,6 +316,12 @@ async function getStatusIdKommo(statusClickup) {
     case "Perdidas":
       statusIdKommo = id_perdido;
       break;
+    case "APROBADA":
+      statusIdKommo = id_vendido;
+      break;
+    case "PERDIDAS":
+      statusIdKommo = id_perdido;
+      break;
     default:
       statusIdKommo = id_cotizando;
   }
