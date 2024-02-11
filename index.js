@@ -82,6 +82,7 @@ async function getCodes() {
   variables.access_token = result[0].access_token;
   variables.refreshTkn = result[0].refresh_token;
   console.log("codes obtained");
+  await client.close();
 }
 //funcion para renovar el token
 async function postRequest() {
@@ -118,6 +119,7 @@ async function uploadCodes(access_token, refresh_token) {
     created_at: new Date(),
   });
   console.log("codes uploaded");
+  await client.close()
 }
 //function para intercambiar codigo por token
 async function refreshTokenFirsTime() {
@@ -751,6 +753,7 @@ async function getClickupId(idKommo) {
     await client.close();
     return false;
   }
+  await client.close()
 }
 //funcion para obtener el id de kommo en base a clickup
 async function getKommoId(idClickUp) {
@@ -784,6 +787,7 @@ async function getLastGtt() {
     await client.close();
     return false;
   }
+  
 }
 //funcion para subir el gtt a mongo
 async function postLastGtt(gtt) {
@@ -795,6 +799,7 @@ async function postLastGtt(gtt) {
     created_at: new Date(),
   });
   console.log("gtt uploaded");
+  await client.close()
 }
 //funcion para procesar el webhook de kommo
 async function processRequestKommo(body) {
