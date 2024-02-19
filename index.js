@@ -9,7 +9,7 @@ const { get } = require("http");
 const path = require("path");
 const reqs = [];
 dotenv.config();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3030;
 const uri = process.env.URL_MONGO;
 const subdomain = process.env.SUBDOMAIN_KOMMO;
 const dbName = process.env.NAME_DB;
@@ -383,6 +383,7 @@ async function getTaskClickUp(id_task_clickup, customFieldName) {
     "Content-Type": "application/json",
     Authorization: token_clickup,
   };
+  console.log("is_tassk: ", id_task_clickup, "customFieldName: ", customFieldName);
   try {
     const response = await axios.get(url, { headers: headers });
     const customFields = response.data.custom_fields;
@@ -397,6 +398,11 @@ async function getTaskClickUp(id_task_clickup, customFieldName) {
     if (error.response.data.ECODE == "ITEM_013") {
       console.log("Tarea borrada en clickup: ", id_task_clickup);
       dataResponse.error = "Tarea borrada en clickup";
+      return dataResponse;
+    }
+    else if (error.response.data.ECODE == "OAUTH_027") {
+      console.log("Tarea no autorizada en clickup: ", id_task_clickup);
+      dataResponse.error = "Tarea no autorizada en clickup";
       return dataResponse;
     }
     console.error("Error al realizar la solicitud GET:", error.response.data);
