@@ -325,7 +325,7 @@ async function getStatusIdKommo(statusClickup) {
       statusIdKommo = id_perdido;
       break;
     default:
-      statusIdKommo = id_cotizando;
+      statusIdKommo = id_vendido;
   }
   return statusIdKommo;
 }
@@ -846,13 +846,17 @@ async function processRequestKommo(body) {
     } catch (error) {
       console.log(error);
     }
-  } else if (
+  } 
+  else if (
     statusClickUp == "Por aprobar cliente" &&
     estadoActualKommo == "Enviada a comercial"
-  ) {
+  ) 
+  {
     console.log("No se actualiza, es estado final en clickup ");
     return;
-  } else {
+  } 
+  else 
+  {
     try {
       console.log("es igual a enviado a comercial");
       let pvp_comercial =
