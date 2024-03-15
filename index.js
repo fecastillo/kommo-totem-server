@@ -25,6 +25,7 @@ const id_pvp_comercial = 1403188;
 const id_pvp_renta_mensual = 1403190;
 const id_vendido = 142;
 const id_perdido = 143;
+const id_en_proceso = 66882844;
 const jsonResponse = {
   data: {
     user_id: "9896011",
@@ -285,6 +286,8 @@ async function getStatusClickup(statusId) {
     case id_perdido:
       statusClickup = "Perdidas";
       break;
+    case id_en_proceso:
+      statusClickup = "En proceso/solo subtareas";
     default:
       statusClickup = "Pendiente";
   }
@@ -323,6 +326,9 @@ async function getStatusIdKommo(statusClickup) {
       break;
     case "PERDIDAS":
       statusIdKommo = id_perdido;
+      break;
+    case "En proceso/solo subtareas":
+      statusIdKommo = id_en_proceso;
       break;
     default:
       statusIdKommo = id_vendido;
