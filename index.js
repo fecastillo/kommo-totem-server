@@ -76,7 +76,6 @@ const client = new MongoClient(uri, {
 });
 //funcion para obtener el token
 async function getCodes() {
-  console.log("getCodes");
   await client.connect();
   const collection = client.db(dbName).collection("variables");
   const result = await collection.find().sort({ _id: -1 }).limit(1).toArray();
@@ -148,8 +147,7 @@ async function refreshTokenFirsTime() {
 }
 //declaro objeto para almacenar los tokens
 let variables = {
-  access_token: "",
-  refreshTkn: "",
+  access_token: process.env.LONG_LIVE_TOKEN,
 };
 async function processRequestSB(body) {
   console.log("processRequestSB");
@@ -216,8 +214,6 @@ async function processUpdateLeadClickUp(dataLead, urlContinue) {
 }
 //funcion para continuar el bot
 async function continueBot(data, urlContinue) {
-  //obtener token
-  await getCodes();
   const url = urlContinue;
   const token = variables.access_token;
   const config = {
@@ -663,7 +659,6 @@ async function updatePvpComercialKommo(idKommo, pvpComercial, idClickUp) {
   if (!idKommo || idKommo == 0 || isNaN(idKommo)) {
     idKommo = await getKommoId(idClickUp);
   }
-  await getCodes();
   const url = `https://${subdomain}/api/v4/leads/${idKommo}`;
   const token = variables.access_token;
   const headers = {
@@ -709,7 +704,6 @@ async function updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp) {
   if (!idKommo || idKommo == 0 || isNaN(idKommo)) {
     idKommo = await getKommoId(idClickUp);
   }
-  await getCodes();
   const url = `https://${subdomain}/api/v4/leads/${idKommo}`;
   const token = variables.access_token;
   const headers = {
@@ -914,7 +908,6 @@ async function processRequestKommo(body) {
 }
 //funcion para actualizar el lead en kommo
 async function updateLeadKommo(idKommo, data) {
-  await getCodes();
   const url = `https://${subdomain}/api/v4/leads/${idKommo}`;
   const token = variables.access_token;
   const headers = {
@@ -957,47 +950,50 @@ const manejarActualizacion = async (ultimaActualizacion, leadsData, res) => {
     res.sendStatus(200);
     return;
   }
-  if (Math.floor(Date.now() / 1000) - ultimaActualizacion < 300) {
+  else if (Math.floor(Date.now() / 1000) - ultimaActualizacion < 300) {
     console.log("No se actualiza, es muy reciente");
     res.sendStatus(200);
     return;
   }
-  console.log("Se actualiza");
-  try {
-    pvpComercial = leadsData.update[0].custom_fields.find(
-      (element) => element.id == 1403188
-    ).values[0].value;
-    data.pvpComercial = pvpComercial;
-    console.log("pvpComercial: ", pvpComercial);
-  } catch (error) {
-    console.log("No se encontró el campo pvpComercial");
-    pvpComercial = null;
+  else {
+    console.log("Se actualiza");
+    try {
+      pvpComercial = leadsData.update[0].custom_fields.find(
+        (element) => element.id == 1403188
+      ).values[0].value;
+      data.pvpComercial = pvpComercial;
+      console.log("pvpComercial: ", pvpComercial);
+    } catch (error) {
+      console.log("No se encontró el campo pvpComercial");
+      pvpComercial = null;
+    }
+    try {
+      pvpRentaMensual = leadsData.update[0].custom_fields.find(
+        (element) => element.id == 1403190
+      ).values[0].value;
+      data.pvpRentaMensual = pvpRentaMensual;
+      console.log("pvpRentaMensual: ", pvpRentaMensual);
+    } catch (error) {
+      console.log("No se encontró el campo pvpRentaMensual");
+      pvpRentaMensual = null;
+    }
+    try {
+      idClickUp = leadsData.update[0].custom_fields.find(
+        (element) => element.id == 1403962
+      ).values[0].value;
+      data.idClickUp = idClickUp;
+      console.log("idClickUp: ", idClickUp);
+    } catch (error) {
+      console.log("No se encontró el campo idClickUp");
+      //se debe buscar el id de clickup en la base de datos
+      idClickUp = await getClickupId(idKommo);
+      data.idClickUp = idClickUp;
+    }
+    // Operaciones asincrónicas de actualización podrían realizarse aquí
+    await updateCustomFieldsClickUp(data);
+    res.sendStatus(200);
   }
-  try {
-    pvpRentaMensual = leadsData.update[0].custom_fields.find(
-      (element) => element.id == 1403190
-    ).values[0].value;
-    data.pvpRentaMensual = pvpRentaMensual;
-    console.log("pvpRentaMensual: ", pvpRentaMensual);
-  } catch (error) {
-    console.log("No se encontró el campo pvpRentaMensual");
-    pvpRentaMensual = null;
-  }
-  try {
-    idClickUp = leadsData.update[0].custom_fields.find(
-      (element) => element.id == 1403962
-    ).values[0].value;
-    data.idClickUp = idClickUp;
-    console.log("idClickUp: ", idClickUp);
-  } catch (error) {
-    console.log("No se encontró el campo idClickUp");
-    //se debe buscar el id de clickup en la base de datos
-    idClickUp = await getClickupId(idKommo);
-    data.idClickUp = idClickUp;
-  }
-  // Operaciones asincrónicas de actualización podrían realizarse aquí
-  await updateCustomFieldsClickUp(data);
-  res.sendStatus(200);
+  
 };
 //funcion para obtener todos los leads de kommo con parametro de pagina
 async function getAllLeadsKommo(page) {
@@ -1016,7 +1012,6 @@ async function getAllLeadsKommo(page) {
 }
 //funcion para obtener todos los leads de kommo, es una funcion recursiva si existe next en "_links" de la respuesta
 async function getAllLeadsKommoRecursive() {
-  await getCodes();
   let page = 1;
   const data = await getAllLeadsKommo(page);
   if (data._links.next) {
