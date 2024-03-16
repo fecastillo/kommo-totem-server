@@ -493,6 +493,9 @@ async function createTaskClickUp(data) {
   const url = `https://api.clickup.com/api/v2/list/${id_lista_clickup}/task`;
   const body = {
     name: data.taskName,
+    start_date: data.created,
+    //buscar id de estado de clickup en base al id de estado de kommo
+    status: await getStatusClickup(parseInt(data.status)),
     description:
       "Tarea creada desde Kommo, fecha: " + new Date().toLocaleDateString(),
     //definir custom fieds solo si hay datos en el array
