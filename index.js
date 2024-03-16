@@ -426,6 +426,7 @@ async function getCustomFieldClickUp(name, customFields) {
 }
 //funcion para crear tarea en clickup
 async function createTaskClickUp(data) {
+  const idDataLead = await getLeadKommo(data.id);
   var dataCustomFields = [
     
     {
@@ -455,7 +456,7 @@ async function createTaskClickUp(data) {
     {
       id: "f85c1750-6844-428e-860d-27bd5b8c6773",
       name: "Fecha de creacion en Kommo",
-      value: Date.now(),
+      value: idDataLead.created_at,
       value_options: { time: true },
     },
     
@@ -493,7 +494,7 @@ async function createTaskClickUp(data) {
   const url = `https://api.clickup.com/api/v2/list/${id_lista_clickup}/task`;
   const body = {
     name: data.taskName,
-    start_date: data.created,
+    start_date: idDataLead.created_at,
     //buscar id de estado de clickup en base al id de estado de kommo
     status: await getStatusClickup(parseInt(data.status)),
     description:
@@ -1187,6 +1188,21 @@ async function getAllPvpRentaMensual() {
     }
   }
   return result;
+}
+//funcion para obtener lead by id
+async function getLeadKommo(id) {
+  const url = `https://${subdomain}/api/v4/leads/${id}`;
+  const token = variables.access_token;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+  try {
+    const response = await axios.get(url, { headers });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function run() {
