@@ -471,6 +471,11 @@ async function createTaskClickUp(data) {
       name: "Estado kommo",
       value: await getStatusClickup(parseInt(data.status)),
     },
+    {
+      id: "65aeec73-23bc-4153-9f59-8cd285fac859",
+      name: "LINEA DE NEGOCIO",
+      value: data.linea_negocio,
+    },
     /*
     {
       id: "f8019704-a7db-40fb-bcbb-276fe6537975",
@@ -541,6 +546,11 @@ async function updateTaskClickUp(data, urlContinue) {
       id: "2e8a5b02-75e6-48b2-be77-1a7992d7ff29",
       name: "Estado kommo",
       value: await getStatusClickup(parseInt(data.status)),
+    },
+    {
+      id: "65aeec73-23bc-4153-9f59-8cd285fac859",
+      name: "LINEA DE NEGOCIO",
+      value: data.linea_negocio,
     },
   ];
   if (data.status == id_enviado_comercial) {
