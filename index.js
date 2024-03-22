@@ -177,6 +177,40 @@ async function processRequestSB(body) {
     }
   }
 }
+
+
+async function processRequestSBtest(body) {
+  //console.log("Body raw: ", body)
+  const bodyFields = body.data.settings.body_fields;
+  const urlContinue = body.return_url.replace(".ru", ".com");
+  
+
+
+  //uso reduce para armar el json de respuesta
+  const result = await bodyFields.reduce((acc, field) => {
+    acc[field.left_val] = field.right_val;
+    return acc;
+  }, {});
+  for (const key in result) {
+    // Reemplaza \\n con una cadena vacía en el valor de la propiedad
+    result[key] = result[key].replace(/\\n/g, "");
+  }
+  console.log(result)
+  if (result.tipo == "crear" || result.tipo == "Crear") {
+    try {
+      await processNewLeadClickUp(result, urlContinue);
+    } catch (error) {
+      console.error(error);
+    }
+  } else if (result.tipo == "actualizar" || result.tipo == "Actualizar") {
+    try {
+      await processUpdateLeadClickUp(result, urlContinue);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 //funcion para procesar nuevos leads en clickup
 async function processNewLeadClickUp(dataLead, urlContinue) {
   const id_task_clickup = await createTaskClickUp(dataLead);
@@ -437,6 +471,7 @@ function getUidTipo(value) {
 //funcion para crear tarea en clickup
 async function createTaskClickUp(data) {
   const idDataLead = await getLeadKommo(data.id);
+  console.log(idDataLead)
   var dataCustomFields = [
     
     {
@@ -489,7 +524,7 @@ async function createTaskClickUp(data) {
     {
       id: "cb6757e9-6cae-4a7e-97ae-ed9d8ee6331e",
       name: "Tipo",
-      value: data.tipo ? getUidTipo(data.tipo) : null
+      value: data.tipo_venta ? getUidTipo(data.tipo_venta) : null
     }
     
   ];
@@ -525,6 +560,7 @@ async function createTaskClickUp(data) {
     const response = await axios.post(url, JSON.stringify(body), {
       headers: headers,
     });
+    console.log("Tarea creada: ", data.id)
     return response.data.id;
   } catch (error) {
     console.error("Error al realizar la solicitud POST:", error.response.data);
@@ -562,7 +598,7 @@ async function updateTaskClickUp(data, urlContinue) {
     {
       id: "cb6757e9-6cae-4a7e-97ae-ed9d8ee6331e",
       name: "Tipo",
-      value: data.tipo ? getUidTipo(data.tipo) : null
+      value: data.tipo_venta ? getUidTipo(data.tipo_venta) : null
     }
   ];
   if (data.status == id_enviado_comercial) {
@@ -1146,7 +1182,7 @@ async function getLeadKommo(id) {
 }
 
 async function run() {
-  getCustomFieldsClickUp(900800948233)
+  
 }
 //run()
 //creo ruta para ver requests
@@ -1165,6 +1201,16 @@ app.post(
     }
   }
 );
+
+//endpoint filtrando el user agent
+app.post(
+  "/test",
+  async (req, res) => {
+      await processRequestSBtest(req.body);
+      res.sendStatus(200);
+  }
+);
+
 // creo ruta para /api/account
 app.post("/api/account", (req, res) => {
   res.json(jsonResponse);
