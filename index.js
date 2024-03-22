@@ -326,6 +326,9 @@ async function getStatusIdKommo(statusClickup) {
     case "STAND BY":
       statusIdKommo = id_stand_by;
       break;
+    case "Stand by":
+      statusIdKommo = id_stand_by;
+      break;
     default:
       statusIdKommo = id_vendido;
   }
