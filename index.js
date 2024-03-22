@@ -81,7 +81,6 @@ async function getCodes() {
   const result = await collection.find().sort({ _id: -1 }).limit(1).toArray();
   variables.access_token = result[0].access_token;
   variables.refreshTkn = result[0].refresh_token;
-  console.log("codes obtained");
   await client.close();
 }
 //funcion para renovar el token
@@ -110,7 +109,6 @@ async function postRequest() {
 }
 //funcion para subir el token a la base de datos
 async function uploadCodes(access_token, refresh_token) {
-  console.log("uploadCodes");
   await client.connect();
   const collection = client.db(dbName).collection("variables");
   await collection.insertOne({
@@ -118,12 +116,10 @@ async function uploadCodes(access_token, refresh_token) {
     refresh_token,
     created_at: new Date(),
   });
-  console.log("codes uploaded");
   await client.close()
 }
 //function para intercambiar codigo por token
 async function refreshTokenFirsTime() {
-  console.log("refreshTokenFirsTime");
   const url = `https://${subdomain}/oauth2/access_token`;
   const data = {
     client_id: process.env.CLIENT_ID,
@@ -150,12 +146,13 @@ let variables = {
   access_token: process.env.LONG_LIVE_TOKEN,
 };
 async function processRequestSB(body) {
-  console.log("processRequestSB");
+  console.log("Body raw: ", body)
   const settingsStr = body.data.settings.replace(/\\"/g, '"').slice(1, -1);
   const bodyParsed = JSON.parse(settingsStr);
   const bodyFields = bodyParsed.body_fields;
   const urlContinue = body.return_url.replace(".ru", ".com");
-  console.log(bodyFields);
+  
+
 
   //uso reduce para armar el json de respuesta
   const result = await bodyFields.reduce((acc, field) => {
@@ -166,17 +163,13 @@ async function processRequestSB(body) {
     // Reemplaza \\n con una cadena vacía en el valor de la propiedad
     result[key] = result[key].replace(/\\n/g, "");
   }
-  //llamo  a la funcion del nuevo lead.
-  console.log(result);
   if (result.tipo == "crear" || result.tipo == "Crear") {
-    console.log("crear");
     try {
       await processNewLeadClickUp(result, urlContinue);
     } catch (error) {
       console.error(error);
     }
   } else if (result.tipo == "actualizar" || result.tipo == "Actualizar") {
-    console.log("actualizar");
     try {
       await processUpdateLeadClickUp(result, urlContinue);
     } catch (error) {
@@ -186,7 +179,6 @@ async function processRequestSB(body) {
 }
 //funcion para procesar nuevos leads en clickup
 async function processNewLeadClickUp(dataLead, urlContinue) {
-  console.log("processNewLeadClickUp");
   const id_task_clickup = await createTaskClickUp(dataLead);
   //await register_relation(parseInst(dataLead.id_usuario), id_task_clickup);
   let data = {
@@ -199,7 +191,6 @@ async function processNewLeadClickUp(dataLead, urlContinue) {
 }
 //funcion para procesar leads actualizados en clickup
 async function processUpdateLeadClickUp(dataLead, urlContinue) {
-  console.log("processUpdateLeadClickUp");
   //chequear si existe el campo idClickup, si no existe buscarlo en la base de datos mediante el id de kommo
   if (!dataLead.idClickup) {
     dataLead.idClickup = await getClickupId(parseInt(dataLead.id));
@@ -223,7 +214,6 @@ async function continueBot(data, urlContinue) {
   };
   try {
     const response = await axios.post(url, data, config);
-    console.log(response.data);
   } catch (error) {
     console.error(error);
   }
@@ -371,8 +361,6 @@ async function getCustomFieldsClickUp(id_lista_clickup) {
     const response = await axios.get(url, {
       headers: headers,
     });
-
-    console.log(JSON.stringify(response.data));
   } catch (error) {
     console.error("Error al realizar la solicitud GET:", error);
   }
@@ -388,7 +376,6 @@ async function getTaskClickUp(id_task_clickup, customFieldName) {
     "Content-Type": "application/json",
     Authorization: token_clickup,
   };
-  console.log("is_tassk: ", id_task_clickup, "customFieldName: ", customFieldName);
   try {
     const response = await axios.get(url, { headers: headers });
     const customFields = response.data.custom_fields;
@@ -398,15 +385,12 @@ async function getTaskClickUp(id_task_clickup, customFieldName) {
     );
     dataResponse.customFieldValue = customFieldValue;
     return dataResponse;
-    //console.log(JSON.stringify(response.data));
   } catch (error) {
     if (error.response.data.ECODE == "ITEM_013") {
-      console.log("Tarea borrada en clickup: ", id_task_clickup);
       dataResponse.error = "Tarea borrada en clickup";
       return dataResponse;
     }
     else if (error.response.data.ECODE == "OAUTH_027") {
-      console.log("Tarea no autorizada en clickup: ", id_task_clickup);
       dataResponse.error = "Tarea no autorizada en clickup";
       return dataResponse;
     }
@@ -418,7 +402,6 @@ async function getCustomFieldClickUp(name, customFields) {
   var value = 0;
   customFields.forEach(async function (item) {
     if (item.name == name) {
-      console.log("Nombre encontrado: ", item.name);
       //chequear si existe el campo "value", si no existe devolver false
       if (item.value) {
         value = item.value;
@@ -534,7 +517,6 @@ async function createTaskClickUp(data) {
 
     custom_fields: dataCustomFields.length > 0 ? dataCustomFields : null,
   };
-  console.log(body);
   const headers = {
     "Content-Type": "application/json",
     Authorization: token_clickup,
@@ -543,7 +525,6 @@ async function createTaskClickUp(data) {
     const response = await axios.post(url, JSON.stringify(body), {
       headers: headers,
     });
-    console.log("Tarea creada: ", response.data.id);
     return response.data.id;
   } catch (error) {
     console.error("Error al realizar la solicitud POST:", error.response.data);
@@ -622,8 +603,6 @@ async function updateTaskClickUp(data, urlContinue) {
     const response = await axios.put(url, body, {
       headers,
     });
-    console.log("Tarea actualizada:", response.data.id);
-
     // Actualiza los campos personalizados no vacíos
     for (const field of dataCustomFields) {
       if (field.value !== "" && field.value !== null) {
@@ -635,8 +614,6 @@ async function updateTaskClickUp(data, urlContinue) {
         await axios.post(fieldUrl, fieldBody, {
           headers,
         });
-
-        console.log(`Campo personalizado actualizado - ${field.name}`);
       }
     }
     //continuar bot
@@ -680,7 +657,6 @@ async function updateCustomFieldsClickUp(data) {
     const response = await axios.put(url, data, {
       headers,
     });
-    console.log("Tarea actualizada:", response.data.id);
     // Actualiza los campos personalizados no vacíos
     for (const field of dataCustomFields) {
       if (field.value !== "" && field.value !== null) {
@@ -691,7 +667,6 @@ async function updateCustomFieldsClickUp(data) {
         const response = await axios.post(fieldUrl, fieldBody, {
           headers,
         });
-        console.log(`Campo personalizado actualizado - ${field.name}`);
       }
     }
   } catch (error) {
@@ -738,7 +713,6 @@ async function updatePvpComercialKommo(idKommo, pvpComercial, idClickUp) {
   };
   try {
     const response = await axios.patch(url, requestBody, { headers });
-    console.log(response.data);
   } catch (error) {
     throw error;
   }
@@ -781,21 +755,17 @@ async function updatePvpRentaMensualKommo(idKommo, pvpRentaMensual, idClickUp) {
   };
   try {
     const response = await axios.patch(url, requestBody, { headers });
-    console.log(response.data);
   } catch (error) {
     throw error;
   }
 }
 //funcion para obtener el id de clickup en base a kommo
 async function getClickupId(idKommo) {
-  console.log("getClickupId");
-  console.log("id kommo: ", idKommo);
   await client.connect();
   const collection = await client
     .db(dbName)
     .collection("id_asociados_clickup_kommo");
   const result = await collection.find({ id_kommo: idKommo }).toArray();
-  console.log(result);
   if (result.length > 0) {
     await client.close();
     return result[0].id_clickup;
@@ -808,11 +778,9 @@ async function getClickupId(idKommo) {
 }
 //funcion para obtener el id de kommo en base a clickup
 async function getKommoId(idClickUp) {
-  console.log("getKommoId2");
   await client.connect();
   const collection = client.db(dbName).collection("id_asociados_clickup_kommo");
   const result = await collection.find({ id_clickup: idClickUp }).toArray();
-  console.log(result);
   if (result.length > 0) {
     await client.close();
     return result[0].id_kommo;
@@ -824,14 +792,11 @@ async function getKommoId(idClickUp) {
 }
 //funcion para obtener el ultimo valor gtt creado en mongo, en la collection gtt
 async function getLastGtt() {
-  console.log("getLastGtt");
   await client.connect();
   const collection = client.db(dbName).collection("gtt");
   const result = await collection.find().sort({ _id: -1 }).limit(1).toArray();
-  console.log(result);
   if (result.length > 0) {
     await client.close();
-    console.log("gtt: ", result[0].gtt);
     return result[0].gtt;
   } else {
     console.error("No se encontró un registro asociado a ese ID de ClickUp.");
@@ -842,14 +807,12 @@ async function getLastGtt() {
 }
 //funcion para subir el gtt a mongo
 async function postLastGtt(gtt) {
-  console.log("postLastGtt");
   await client.connect();
   const collection = client.db(dbName).collection("gtt");
   await collection.insertOne({
     gtt,
     created_at: new Date(),
   });
-  console.log("gtt uploaded");
   await client.close()
 }
 //funcion para procesar el webhook de kommo
@@ -875,14 +838,8 @@ async function processRequestKommo(body) {
     console.error("No se encontró el ID de Kommo.");
     return;
   }
-  console.log("processRequestKommo");
-  console.log("id Clickup: ", idClickUp);
-  console.log("status kommo: ", statusClickUp);
-  console.log("id status kommo: ", idStatusKommo);
-  console.log("id lead kommo: ", idKommo);
   if (idStatusKommo != id_enviado_comercial) {
     try {
-      console.log("No es igual a enviado a comercial");
       const requestBody = {
         status_id: idStatusKommo,
         pipeline_id: 7073743,
@@ -897,13 +854,11 @@ async function processRequestKommo(body) {
     estadoActualKommo == "Enviada a comercial"
   ) 
   {
-    console.log("No se actualiza, es estado final en clickup ");
     return;
   } 
   else 
   {
     try {
-      console.log("es igual a enviado a comercial");
       let pvp_comercial =
         parseInt(
           body.payload.custom_fields.find(
@@ -916,8 +871,6 @@ async function processRequestKommo(body) {
             (item) => item.name === "RENTA MENSUAL"
           ).value
         ) || 0;
-      console.log("pvp_comercial: ", pvp_comercial);
-      console.log("pvp_renta_mensual: ", pvp_renta_mensual);
       const requestBody = {
         custom_fields_values: [
           {
@@ -959,11 +912,9 @@ async function updateLeadKommo(idKommo, data) {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
-  try {
-    const response = await axios.patch(url, data, { headers });
-    console.log(response.data);
+  try { await axios.patch(url, data, { headers });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 // Función asincrónica para obtener la fecha de última actualización
@@ -973,9 +924,8 @@ const obtenerUltimaActualizacion = async (leadsData) => {
     ultimaActualizacion = leadsData.update[0].custom_fields.find(
       (element) => element.id == 1403964
     ).values[0];
-    console.log("ultimaActualizacion: ", ultimaActualizacion);
   } catch (error) {
-    console.log("No se encontró el campo ultimaActualizacion");
+   
     ultimaActualizacion = 0;
   }
   return ultimaActualizacion;
@@ -988,28 +938,21 @@ const manejarActualizacion = async (ultimaActualizacion, leadsData, res) => {
   let idKommo = leadsData.update[0].id;
   let data = {};
   data.idKommo = idKommo;
-  console.log("Fecha última actualización: ", ultimaActualizacion);
-  console.log("Fecha actual: ", Math.floor(Date.now() / 1000));
   if (ultimaActualizacion === 0) {
-    console.log("No se actualiza, no hay fecha de última actualización");
     res.sendStatus(200);
     return;
   }
   else if (Math.floor(Date.now() / 1000) - ultimaActualizacion < 300) {
-    console.log("No se actualiza, es muy reciente");
     res.sendStatus(200);
     return;
   }
   else {
-    console.log("Se actualiza");
     try {
       pvpComercial = leadsData.update[0].custom_fields.find(
         (element) => element.id == 1403188
       ).values[0].value;
       data.pvpComercial = pvpComercial;
-      console.log("pvpComercial: ", pvpComercial);
     } catch (error) {
-      console.log("No se encontró el campo pvpComercial");
       pvpComercial = null;
     }
     try {
@@ -1017,9 +960,7 @@ const manejarActualizacion = async (ultimaActualizacion, leadsData, res) => {
         (element) => element.id == 1403190
       ).values[0].value;
       data.pvpRentaMensual = pvpRentaMensual;
-      console.log("pvpRentaMensual: ", pvpRentaMensual);
     } catch (error) {
-      console.log("No se encontró el campo pvpRentaMensual");
       pvpRentaMensual = null;
     }
     try {
@@ -1027,9 +968,7 @@ const manejarActualizacion = async (ultimaActualizacion, leadsData, res) => {
         (element) => element.id == 1403962
       ).values[0].value;
       data.idClickUp = idClickUp;
-      console.log("idClickUp: ", idClickUp);
     } catch (error) {
-      console.log("No se encontró el campo idClickUp");
       //se debe buscar el id de clickup en la base de datos
       idClickUp = await getClickupId(idKommo);
       data.idClickUp = idClickUp;
@@ -1068,8 +1007,7 @@ async function getAllLeadsKommoRecursive() {
 }
 //funcion paara simplicar el array y convertirlo en un objeto
 function arrayToJson(lead, campo) {
-  //console.log("Lead: ", lead)
-  // Función auxiliar para buscar un campo en el array
+ 
   function findField(fieldName) {
     return lead.custom_fields_values.find(
       (item) => item.field_name === fieldName
@@ -1083,12 +1021,10 @@ function arrayToJson(lead, campo) {
   };
 
   var campoItem = findField(campo);
-  //console.log(campoItem)
   var valorCampo =
     campoItem && campoItem.values && campoItem.values.length > 0
       ? campoItem.values[0].value
       : null;
-  //console.log("Valor campo: ",valorCampo);
   if (valorCampo == 0 || valorCampo == "" || valorCampo == null) {
     result[campo] = 0;
     //result[campoItem.field_name] = campoItem.values[0].value;
@@ -1125,11 +1061,9 @@ async function getAllPvpComercial() {
     );
     const pvpComercialClickup = pvpComercialClickupData.customFieldValue;
     item["Pvp comercial clickup"] = pvpComercialClickup;
-    //console.log("Item: ", item)
-    //console.log("Id kommo: ", item.id, "PVP Comercial clickup: ", pvpComercialClickup, "PVP Comercial kommo: ", item["PVP Comercial"]);
+    
     if (pvpComercialClickup != item["PVP Comercial"]) {
       item["Actualizar en kommo"] = true;
-      console.log("No son iguales, se debe actualizar en kommo");
       try {
         await updatePvpComercialKommo(
           item.id,
@@ -1141,29 +1075,12 @@ async function getAllPvpComercial() {
       } catch (error) {
         console.log(error);
       }
-      console.log(
-        "Id kommo: ",
-        item.id,
-        "PVP Comercial clickup: ",
-        pvpComercialClickup,
-        "PVP Comercial kommo: ",
-        item["PVP Comercial"]
-      );
     } else {
       item["Actualizar en kommo"] = false;
       //si existe el campo pvpComercialClickup.error reflear ese campo en el item
       if (pvpComercialClickupData.error) {
         item["Detalles error"] = pvpComercialClickupData.error;
       }
-      console.log("Son iguales, no se debe actualizar en kommo");
-      console.log(
-        "Id kommo: ",
-        item.id,
-        "PVP Comercial clickup: ",
-        pvpComercialClickup,
-        "PVP Comercial kommo: ",
-        item["PVP Comercial"]
-      );
     }
   }
   return result;
@@ -1191,7 +1108,6 @@ async function getAllPvpRentaMensual() {
 
     if (rentaMensualClickup != item["PVP Renta Mensual"]) {
       item["Actualizar en kommo"] = true;
-      console.log("No son iguales, se debe actualizar en kommo");
       try {
         await updatePvpRentaMensualKommo(
           item.id,
@@ -1203,29 +1119,12 @@ async function getAllPvpRentaMensual() {
       } catch (error) {
         console.log(error);
       }
-      console.log(
-        "Id kommo: ",
-        item.id,
-        "Renta mensul clickup: ",
-        rentaMensualClickup,
-        "PVP renta mensual kommo: ",
-        item["PVP Renta Mensual"]
-      );
     } else {
       item["Actualizar en kommo"] = false;
 
       if (rentaMensualClickupData.error) {
         item["Detalles error"] = rentaMensualClickupData.error;
       }
-      console.log("Son iguales, no se debe actualizar en kommo");
-      console.log(
-        "Id kommo: ",
-        item.id,
-        "Renta mensul clickup: ",
-        rentaMensualClickup,
-        "PVP renta mensual kommo: ",
-        item["PVP Renta Mensual"]
-      );
     }
   }
   return result;
@@ -1297,21 +1196,15 @@ app.post("/pvpComercial", async (req, res) => {
   if (pvpComercial) {
     pvpNumber = pvpComercial.replace(/\D/g, "");
   }
-  console.log("pvpNumber: ", pvpNumber);
-  console.log("idClickUp: ", idClickUp);
-  console.log("idKommo: ", idKommo);
-  console.log("pvpComercial: ", pvpComercial);
   try {
     await updatePvpComercialKommo(idKommo, pvpNumber, idClickUp);
     res.sendStatus(200);
   } catch (error) {
-    console.log(JSON.stringify(error.response.data));
     res.sendStatus(500);
   }
 });
 //ruta para procesar el cambio del campo renta mensual en kommo /rentaMensual?idKommo=10635172&rentaMensual=USD%202000
 app.post("/rentaMensual", async (req, res) => {
-  console.log("req.: ", req.query);
   const idClickUp = req.body.payload.id;
   const idKommo = req.query.idKommo || 0;
   const pvpRentaMensual = req.query.rentaMensual;
@@ -1320,9 +1213,6 @@ app.post("/rentaMensual", async (req, res) => {
   if (pvpRentaMensual) {
     pvpNumber = pvpRentaMensual.replace(/\D/g, "");
   }
-  console.log("pvpNumber: ", pvpNumber);
-  console.log("idKommo: ", idKommo);
-  console.log("pvpRentaMensual: ", pvpRentaMensual);
   try {
     await updatePvpRentaMensualKommo(idKommo, pvpNumber, idClickUp);
     res.sendStatus(200);
@@ -1333,7 +1223,6 @@ app.post("/rentaMensual", async (req, res) => {
 });
 // Ruta actualizada con las funciones asincrónicas
 app.post("/updateFields", async (req, res) => {
-  console.log("updateFields");
   if (req.headers["user-agent"] === "amoCRM-Webhooks/3.0") {
     try {
       const ultimaActualizacion = await obtenerUltimaActualizacion(
