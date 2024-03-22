@@ -372,7 +372,7 @@ async function getCustomFieldsClickUp(id_lista_clickup) {
       headers: headers,
     });
 
-    console.log(response.data);
+    console.log(JSON.stringify(response.data));
   } catch (error) {
     console.error("Error al realizar la solicitud GET:", error);
   }
@@ -427,6 +427,30 @@ async function getCustomFieldClickUp(name, customFields) {
   });
   return value;
 }
+
+//funcion para obteener el uid de tipo de acuerdo al valor
+function getUidTipo(value) {
+  const options = [
+    {
+      "id": "30c97e83-7549-432c-b3e2-32894de7ded0",
+      "name": "Venta",
+      "color": null,
+      "orderindex": 0
+    },
+    {
+      "id": "6b17587b-be96-4951-9198-beb6e6c1696f",
+      "name": "Renta",
+      "color": null,
+      "orderindex": 1
+    }
+  ]
+  const option = options.find(option => option.name === value);
+  if (option) {
+    return option.id;
+  }
+  return null;
+}
+
 //funcion para crear tarea en clickup
 async function createTaskClickUp(data) {
   const idDataLead = await getLeadKommo(data.id);
@@ -479,13 +503,12 @@ async function createTaskClickUp(data) {
       name: "LINEA DE NEGOCIO",
       value: data.linea_negocio,
     },
-    /*
     {
-      id: "f8019704-a7db-40fb-bcbb-276fe6537975",
-      name: "CLIENTE",
-      value: data.cliente || "",
-    },
-    */
+      id: "cb6757e9-6cae-4a7e-97ae-ed9d8ee6331e",
+      name: "Tipo",
+      value: data.tipo ? getUidTipo(data.tipo) : null
+    }
+    
   ];
   //recorrer dataCustomFields, si hay campos values con valor 0 o vario elminar todo el objeto al que pertenece
   dataCustomFields.forEach(function (item, index, object) {
@@ -555,6 +578,11 @@ async function updateTaskClickUp(data, urlContinue) {
       name: "LINEA DE NEGOCIO",
       value: data.linea_negocio,
     },
+    {
+      id: "cb6757e9-6cae-4a7e-97ae-ed9d8ee6331e",
+      name: "Tipo",
+      value: data.tipo ? getUidTipo(data.tipo) : null
+    }
   ];
   if (data.status == id_enviado_comercial) {
     var lastGtt = await getLastGtt();
@@ -1219,20 +1247,9 @@ async function getLeadKommo(id) {
 }
 
 async function run() {
-  const data = {
-    id: "12516528",
-    taskName: "NIRSA S.A. - MATRIZ - 15 CAM ADICIONALES - CCTV",
-    id_usuario: "9267207",
-    idClickup: "",
-    valorRenta: "",
-    pvpComercial: "",
-    pvpRentaMensual: "",
-    tipo: "crear",
-    cliente: "NIRSA S.A.",
-  };
-
-  await createTaskClickUp(data);
+  getCustomFieldsClickUp(900800948233)
 }
+//run()
 //creo ruta para ver requests
 app.get("/requests", (req, res) => {
   res.json(requests);
