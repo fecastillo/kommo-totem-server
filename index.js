@@ -15,6 +15,7 @@ const subdomain = process.env.SUBDOMAIN_KOMMO;
 const dbName = process.env.NAME_DB;
 const token_clickup = process.env.CLICKUP_TOKEN;
 //declaro los id de los estados de kommo
+const id_pendiente = 0;
 const id_cotizando = 58847107;
 const id_inspeccion = 60495387;
 const id_diseno = 60495391;
@@ -317,6 +318,9 @@ async function getStatusClickup(statusId) {
 async function getStatusIdKommo(statusClickup) {
   let statusIdKommo = 0;
   switch (statusClickup) {
+    case "Pendiente":
+      statusIdKommo = id_pendiente;
+      break;
     case "Cotizando":
       statusIdKommo = id_cotizando;
       break;
