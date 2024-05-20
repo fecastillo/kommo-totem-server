@@ -117,7 +117,7 @@ async function uploadCodes(access_token, refresh_token) {
     refresh_token,
     created_at: new Date(),
   });
-  await client.close()
+  await client.close();
 }
 //function para intercambiar codigo por token
 async function refreshTokenFirsTime() {
@@ -147,13 +147,11 @@ let variables = {
   access_token: process.env.LONG_LIVE_TOKEN,
 };
 async function processRequestSB(body) {
-  console.log("Body raw: ", body)
+  console.log("Body raw: ", body);
   const settingsStr = body.data.settings.replace(/\\"/g, '"').slice(1, -1);
   const bodyParsed = JSON.parse(settingsStr);
   const bodyFields = bodyParsed.body_fields;
   const urlContinue = body.return_url.replace(".ru", ".com");
-  
-
 
   //uso reduce para armar el json de respuesta
   const result = await bodyFields.reduce((acc, field) => {
@@ -179,13 +177,10 @@ async function processRequestSB(body) {
   }
 }
 
-
 async function processRequestSBtest(body) {
   //console.log("Body raw: ", body)
   const bodyFields = body.data.settings.body_fields;
   const urlContinue = body.return_url.replace(".ru", ".com");
-  
-
 
   //uso reduce para armar el json de respuesta
   const result = await bodyFields.reduce((acc, field) => {
@@ -196,7 +191,7 @@ async function processRequestSBtest(body) {
     // Reemplaza \\n con una cadena vacía en el valor de la propiedad
     result[key] = result[key].replace(/\\n/g, "");
   }
-  console.log(result)
+  console.log(result);
   if (result.tipo == "crear" || result.tipo == "Crear") {
     try {
       await processNewLeadClickUp(result, urlContinue);
@@ -427,8 +422,7 @@ async function getTaskClickUp(id_task_clickup, customFieldName) {
     if (error.response.data.ECODE == "ITEM_013") {
       dataResponse.error = "Tarea borrada en clickup";
       return dataResponse;
-    }
-    else if (error.response.data.ECODE == "OAUTH_027") {
+    } else if (error.response.data.ECODE == "OAUTH_027") {
       dataResponse.error = "Tarea no autorizada en clickup";
       return dataResponse;
     }
@@ -453,19 +447,19 @@ async function getCustomFieldClickUp(name, customFields) {
 function getUidTipo(value) {
   const options = [
     {
-      "id": "30c97e83-7549-432c-b3e2-32894de7ded0",
-      "name": "Venta",
-      "color": null,
-      "orderindex": 0
+      id: "30c97e83-7549-432c-b3e2-32894de7ded0",
+      name: "Venta",
+      color: null,
+      orderindex: 0,
     },
     {
-      "id": "6b17587b-be96-4951-9198-beb6e6c1696f",
-      "name": "Renta",
-      "color": null,
-      "orderindex": 1
-    }
-  ]
-  const option = options.find(option => option.name === value);
+      id: "6b17587b-be96-4951-9198-beb6e6c1696f",
+      name: "Renta",
+      color: null,
+      orderindex: 1,
+    },
+  ];
+  const option = options.find((option) => option.name === value);
   if (option) {
     return option.id;
   }
@@ -475,46 +469,45 @@ function getUidTipo(value) {
 //funcion para crear tarea en clickup
 async function createTaskClickUp(data) {
   const idDataLead = await getLeadKommo(data.id);
-  console.log(idDataLead)
+  console.log(idDataLead);
   var dataCustomFields = [
-    
     {
       id: "27317d59-217e-4bac-9b5c-b62c1bb9d8ae",
       name: "GTT",
       value: data.gtt || "",
     },
-    
+
     {
       id: "524d6c56-f6ad-422b-8bcb-f5d150b6a588",
       name: "PVP comercial",
       value: data.pvpComercial || 0,
     },
-    
+
     {
       id: "f3c4fd75-cbb2-4218-92ec-f13236ffdcf6",
       name: "RENTA MENSUAL",
       value: data.pvpRentaMensual || 0,
     },
-    
+
     {
       id: "25dcdffe-eb04-450e-836d-d45c6f02d597",
       name: "Id Kommo",
       value: data.id || "",
     },
-    
+
     {
       id: "f85c1750-6844-428e-860d-27bd5b8c6773",
       name: "Fecha de creacion en Kommo",
       value: idDataLead.created_at,
       value_options: { time: true },
     },
-    
+
     {
       id: "21433403-f259-4794-9a74-dc8e3aea6469",
       name: "Usuario creador Kommo",
       value: await getNameUserKommo(parseInt(data.id_usuario)),
     },
-    
+
     {
       id: "2e8a5b02-75e6-48b2-be77-1a7992d7ff29",
       name: "Estado kommo",
@@ -528,9 +521,8 @@ async function createTaskClickUp(data) {
     {
       id: "cb6757e9-6cae-4a7e-97ae-ed9d8ee6331e",
       name: "Tipo",
-      value: data.tipo_venta ? getUidTipo(data.tipo_venta) : null
-    }
-    
+      value: data.tipo_venta ? getUidTipo(data.tipo_venta) : null,
+    },
   ];
   //recorrer dataCustomFields, si hay campos values con valor 0 o vario elminar todo el objeto al que pertenece
   dataCustomFields.forEach(function (item, index, object) {
@@ -551,7 +543,7 @@ async function createTaskClickUp(data) {
     //buscar id de estado de clickup en base al id de estado de kommo
     status: await getStatusClickup(parseInt(data.status)),
     description:
-      "Tarea creada desde Kommo, fecha: " + new Date().toLocaleDateString(),
+    new Date().toLocaleDateString() + "Tarea creada desde Kommo, fecha: " ,
     //definir custom fieds solo si hay datos en el array
 
     custom_fields: dataCustomFields.length > 0 ? dataCustomFields : null,
@@ -564,7 +556,7 @@ async function createTaskClickUp(data) {
     const response = await axios.post(url, JSON.stringify(body), {
       headers: headers,
     });
-    console.log("Tarea creada: ", data.id)
+    console.log("Tarea creada: ", data.id);
     return response.data.id;
   } catch (error) {
     console.error("Error al realizar la solicitud POST:", error.response.data);
@@ -602,8 +594,8 @@ async function updateTaskClickUp(data, urlContinue) {
     {
       id: "cb6757e9-6cae-4a7e-97ae-ed9d8ee6331e",
       name: "Tipo",
-      value: data.tipo_venta ? getUidTipo(data.tipo_venta) : null
-    }
+      value: data.tipo_venta ? getUidTipo(data.tipo_venta) : null,
+    },
   ];
   if (data.status == id_enviado_comercial) {
     var lastGtt = await getLastGtt();
@@ -814,7 +806,7 @@ async function getClickupId(idKommo) {
     await client.close();
     return false;
   }
-  await client.close()
+  await client.close();
 }
 //funcion para obtener el id de kommo en base a clickup
 async function getKommoId(idClickUp) {
@@ -843,7 +835,6 @@ async function getLastGtt() {
     await client.close();
     return false;
   }
-  
 }
 //funcion para subir el gtt a mongo
 async function postLastGtt(gtt) {
@@ -853,7 +844,7 @@ async function postLastGtt(gtt) {
     gtt,
     created_at: new Date(),
   });
-  await client.close()
+  await client.close();
 }
 //funcion para procesar el webhook de kommo
 async function processRequestKommo(body) {
@@ -888,16 +879,12 @@ async function processRequestKommo(body) {
     } catch (error) {
       console.log(error);
     }
-  } 
-  else if (
+  } else if (
     statusClickUp == "Por aprobar cliente" &&
     estadoActualKommo == "Enviada a comercial"
-  ) 
-  {
+  ) {
     return;
-  } 
-  else 
-  {
+  } else {
     try {
       let pvp_comercial =
         parseInt(
@@ -952,7 +939,8 @@ async function updateLeadKommo(idKommo, data) {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
-  try { await axios.patch(url, data, { headers });
+  try {
+    await axios.patch(url, data, { headers });
   } catch (error) {
     console.error(error);
   }
@@ -965,7 +953,6 @@ const obtenerUltimaActualizacion = async (leadsData) => {
       (element) => element.id == 1403964
     ).values[0];
   } catch (error) {
-   
     ultimaActualizacion = 0;
   }
   return ultimaActualizacion;
@@ -981,12 +968,10 @@ const manejarActualizacion = async (ultimaActualizacion, leadsData, res) => {
   if (ultimaActualizacion === 0) {
     res.sendStatus(200);
     return;
-  }
-  else if (Math.floor(Date.now() / 1000) - ultimaActualizacion < 300) {
+  } else if (Math.floor(Date.now() / 1000) - ultimaActualizacion < 300) {
     res.sendStatus(200);
     return;
-  }
-  else {
+  } else {
     try {
       pvpComercial = leadsData.update[0].custom_fields.find(
         (element) => element.id == 1403188
@@ -1017,7 +1002,6 @@ const manejarActualizacion = async (ultimaActualizacion, leadsData, res) => {
     await updateCustomFieldsClickUp(data);
     res.sendStatus(200);
   }
-  
 };
 //funcion para obtener todos los leads de kommo con parametro de pagina
 async function getAllLeadsKommo(page) {
@@ -1047,7 +1031,6 @@ async function getAllLeadsKommoRecursive() {
 }
 //funcion paara simplicar el array y convertirlo en un objeto
 function arrayToJson(lead, campo) {
- 
   function findField(fieldName) {
     return lead.custom_fields_values.find(
       (item) => item.field_name === fieldName
@@ -1101,7 +1084,7 @@ async function getAllPvpComercial() {
     );
     const pvpComercialClickup = pvpComercialClickupData.customFieldValue;
     item["Pvp comercial clickup"] = pvpComercialClickup;
-    
+
     if (pvpComercialClickup != item["PVP Comercial"]) {
       item["Actualizar en kommo"] = true;
       try {
@@ -1184,10 +1167,80 @@ async function getLeadKommo(id) {
     console.log(error);
   }
 }
+//funcion para actualizar campo nota en clickup
 
-async function run() {
-  
+async function addNotaClickup(data) {
+  //console.log(data.leads.note[0].note.element_id)
+  const dataLead = await getLeadKommo(
+    parseInt(data.leads.note[0].note.element_id)
+  );
+  if (!dataLead) {
+    return;
+  }
+  //buscar el id de clickup en el array de custom fields
+  const idClickUp =
+    dataLead.custom_fields_values.find((item) => item.field_id === 1403962)
+      .values[0].value || false;
+  if (!idClickUp) {
+    return;
+  }
+  const url = `https://api.clickup.com/api/v2/task/${idClickUp}`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: token_clickup,
+  };
+  let body = {
+    description:"",
+  };
+  try {
+    const dataClickup = await getTaskClickUp2(idClickUp);
+    const nuevoTexto  = agregarTextoConFecha(dataClickup.description, data.leads.note[0].note.text);
+    console.log("Nuevo texto: ", nuevoTexto);
+    //const nuevoTexto = agregarTextoConFecha(dataClickup.description, "Texto de pruebas");
+    body.description = nuevoTexto;
+    //console.log(nuevoTexto);
+    const response = await axios.put(url, JSON.stringify(body), { headers });
+    console.log(response.data);
+  } catch (error) {
+    console.log("Error al realizar la solicitud PUT:", error);
+  }
 }
+
+//funcion para obtener task by id de clickup
+async function getTaskClickUp2(id) {
+  const url = `https://api.clickup.com/api/v2/task/${id}`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: token_clickup,
+  };
+  try {
+    const response = await axios.get(url, { headers });
+    return response.data
+  } catch (error) {
+    return { error: error.response.data };
+  }
+}
+//funcion para modificar la descripcion
+function agregarTextoConFecha(texto_viejo, nuevo_texto) {
+  // Obtén la fecha actual
+  const fechaActual = new Date();
+  const dia = fechaActual.getDate();
+  const mes = fechaActual.getMonth() + 1; // Los meses en JavaScript van de 0 a 11
+  const anio = fechaActual.getFullYear();
+
+  // Formatea la fecha como DD/MM/YYYY
+  const fechaFormateada = `${dia.toString().padStart(2, "0")}/${mes
+    .toString()
+    .padStart(2, "0")}/${anio}`;
+
+  // Combina el texto viejo con el nuevo texto y la fecha
+  const textoActualizado = `${texto_viejo}\n${fechaFormateada}: ${nuevo_texto}`;
+
+  return textoActualizado;
+}
+
+//getTaskClickUp("86b0eedh5");
+async function run() {}
 //run()
 //creo ruta para ver requests
 app.get("/requests", (req, res) => {
@@ -1207,13 +1260,10 @@ app.post(
 );
 
 //endpoint filtrando el user agent
-app.post(
-  "/test",
-  async (req, res) => {
-      await processRequestSBtest(req.body);
-      res.sendStatus(200);
-  }
-);
+app.post("/test", async (req, res) => {
+  await processRequestSBtest(req.body);
+  res.sendStatus(200);
+});
 
 // creo ruta para /api/account
 app.post("/api/account", (req, res) => {
@@ -1316,9 +1366,22 @@ app.get("/actualizarRentaMensual", async (req, res) => {
     res.sendStatus(500);
   }
 });
+//ruta para recibir notas y enviar notas a clickup
+app.post("/updateNote", async (req, res) => {
+  //console.log(req.body);
+  try {
+    await addNotaClickup(req.body);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 //entregar archivo index.html
 app.get("/index", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 // levanto el servidor en el puerto 300
-app.listen(port, () => {console.log(`Server listening at http://localhost:${port}`);});
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
+});
